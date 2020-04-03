@@ -38,8 +38,8 @@ public class UserInterface extends JFrame{
 		
 		mainPanel.add(insertButton, BorderLayout.SOUTH);
 		mainPanel.add( findButton, BorderLayout.SOUTH);
-		mainPanel.add("South", browseButton);
-		mainPanel.add("South", createTreeButton);
+		//mainPanel.add("South", browseButton);
+		//mainPanel.add("South", createTreeButton);
 
 		add(mainPanel);
 	}
