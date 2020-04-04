@@ -142,4 +142,30 @@ class BinSearchTree {
 		if (cur.right!=null)
 			print_tree(cur.right,out);
 	} 
+	
+	public String toString()
+	{
+		StringBuffer s = new StringBuffer();
+		toStringRec(root, s);
+		if(s.length() == 0)
+			System.out.println("\nSTRING EMPTY printBST\n");
+		return s.toString();
+	}
+			
+	private void toStringRec(Node cur, StringBuffer s)
+	{
+		if(cur.left != null)
+		{
+			toStringRec(cur.left, s);
+		}
+		
+		s.append( cur.data.id+"        "+cur.data.faculty+"     "+
+                cur.data.major+ "       "+cur.data.year + "\n" );
+
+		System.out.print(s);
+		if(cur.right != null)
+		{
+			toStringRec(cur.right, s);
+		}
+	}
 }
