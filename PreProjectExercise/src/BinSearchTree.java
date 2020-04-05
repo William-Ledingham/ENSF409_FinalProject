@@ -143,6 +143,9 @@ class BinSearchTree {
 			print_tree(cur.right,out);
 	} 
 	
+	/**
+	 * Method to put all information stored in the BinSearchTree in a String.
+	 */
 	public String toString()
 	{
 		StringBuffer s = new StringBuffer();
@@ -151,7 +154,11 @@ class BinSearchTree {
 			System.out.println("\nSTRING EMPTY printBST\n");
 		return s.toString();
 	}
-			
+	/**
+	 * Recursive method to traverse tree and add information to String.
+	 * @param cur Node pointer for traversal.
+	 * @param s StringBuffer storing all information.
+	 */
 	private void toStringRec(Node cur, StringBuffer s)
 	{
 		if(cur.left != null)
