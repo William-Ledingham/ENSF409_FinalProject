@@ -12,7 +12,7 @@ import java.io.PrintWriter;
  * @since 2020-04-03
  *
  */
-public class UIModel {
+public class BSTModel {
 
 	/**
 	 * Binary Search Tree used to maintain Student Records.
@@ -22,7 +22,7 @@ public class UIModel {
 	/**
 	 * Constructs the Model with a new BinSearchTree.
 	 */
-	public UIModel()
+	public BSTModel()
 	{
 		BST = new BinSearchTree();
 	}

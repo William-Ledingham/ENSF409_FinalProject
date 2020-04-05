@@ -13,7 +13,7 @@ import javax.swing.*;
  * @since 2020-04-03
  *
  */
-public class UserInterface extends JFrame {
+public class GUI extends JFrame {
 
 	/**
 	 * Title at top of the panel.
@@ -51,9 +51,9 @@ public class UserInterface extends JFrame {
 	private InsertPanel insertPanel;
 	
 	/**
-	 * Constructs the UserInterface with all components.
+	 * Constructs the GUI with all components.
 	 */
-	public UserInterface()
+	public GUI()
 	{
 		super("Student Records");
 		
@@ -68,7 +68,6 @@ public class UserInterface extends JFrame {
 		scrollPane.setBounds(10, 60, 780, 500);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		textArea.setEditable(false);
-		textArea.setText("Testing the Text Area");
 		mainPanel.add("Center", scrollPane);
 		
 		JPanel southPanel = new JPanel(new FlowLayout());
@@ -187,12 +186,12 @@ public class UserInterface extends JFrame {
 	public static void main( String[] args)
 	{
 		System.out.println("Start Program");
-		UserInterface myApp = new UserInterface();
+		GUI myApp = new GUI();
 		myApp.setVisible(true);
 		
-		UIModel model = new UIModel();
+		BSTModel model = new BSTModel();
 		
-		UIController controller = new UIController(myApp, model);
+		Controller controller = new Controller(myApp, model);
 	}
 	
 }

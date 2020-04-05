@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 /**
- * Provides data members and methods for a GUI that is suppose to be auxiliary to the main UserInterface panel.
+ * Provides data members and methods for a GUI that is suppose to be auxiliary to the main panel.
  * Gives text fields to enter information for another student to be added to the records.
  * @author William Ledingham
  * @version 1.0

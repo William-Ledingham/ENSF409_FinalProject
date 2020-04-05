@@ -12,24 +12,24 @@ import java.util.Scanner;
  * @since 2020-04-03
  *
  */
-public class UIController {
+public class Controller {
 
 	/**
 	 * The View that implements the GUI for the program
 	 */
-	private UserInterface theView;
+	private GUI theView;
 	/**
 	 * The Model that implements the management of the Student Records.
 	 */
-	private UIModel theModel;
+	private BSTModel theModel;
 	
 	
 	/**
 	 * Constructs the Controller with the View and Model for this program.
-	 * @param theView UserInterface to manage panels.
-	 * @param theModel UIModel to manage the Student Records.
+	 * @param theView GUI to manage panels.
+	 * @param theModel BSTModel to manage the Student Records.
 	 */
-	public UIController(UserInterface theView, UIModel theModel)
+	public Controller(GUI theView, BSTModel theModel)
 	{
 		this.theView = theView;
 		this.theModel = theModel;
@@ -128,8 +128,8 @@ public class UIController {
 	public void parseTextFile(String s)
 	{
 		try 
-		{
-			Scanner sc = new Scanner(new FileInputStream("C:\\Users\\wille\\Documents\\3rd_year_courses\\ENSF_409\\ENSF409_FinalProject\\PreProjectExercise\\src\\" + s));
+		{	//C:\\Users\\wille\\Documents\\3rd_year_courses\\ENSF_409\\ENSF409_FinalProject\\PreProjectExercise\\src\\
+			Scanner sc = new Scanner(new FileInputStream(s));
 			
 			while(sc.hasNextLine())
 			{
