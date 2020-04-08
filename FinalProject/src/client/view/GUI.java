@@ -1,3 +1,5 @@
+package client.view;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -182,7 +184,7 @@ public class GUI extends JFrame {
 	}
 	
 	
-	
+	/*
 	public static void main( String[] args)
 	{
 		System.out.println("Start Program");
@@ -193,5 +195,6 @@ public class GUI extends JFrame {
 		
 		Controller controller = new Controller(myApp, model);
 	}
+	*/
 	
 }
