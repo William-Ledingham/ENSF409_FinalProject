@@ -1,4 +1,4 @@
-package server.model;
+package shared.model;
 
 public class Registration {
 	private Student theStudent;

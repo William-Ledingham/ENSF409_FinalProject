@@ -5,6 +5,10 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import shared.model.Course;
+import shared.model.CourseCatalogue;
+import shared.model.Student;
+
 //This class is simulating a database for our
 //program
 public class DBManager {
