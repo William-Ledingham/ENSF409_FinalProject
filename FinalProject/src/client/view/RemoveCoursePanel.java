@@ -5,23 +5,27 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  * Provides data members and methods to create a JFrame that is meant to be auxiliary to the main GUI frame.
- * Provides TextFields to enter information for a course to be added to a students course list.
+ * Provides TextFields to enter information for a course to be removed from a students course list.
  * 
  * @author William Ledingham
  * @version 1.0
  * @since 2020-04-10
  *
  */
-public class AddCoursePanel extends JFrame{
+public class RemoveCoursePanel extends JFrame{
 
 	/**
 	 * Title at top of the panel.
 	 */
-	private JLabel title = new JLabel("Add New Course");
+	private JLabel title = new JLabel("Remove Course");
 	
 	/**
 	 * Label for the Faculty TextField.
@@ -32,7 +36,7 @@ public class AddCoursePanel extends JFrame{
 	 */
 	private JTextField facultyTextField = new JTextField(10);
 	/**
-	 * Label for the course id TextField.
+	 * Label for the course id TextField
 	 */
 	private JLabel courseIdLabel = new JLabel("Course ID:");
 	/**
@@ -44,13 +48,13 @@ public class AddCoursePanel extends JFrame{
 	 */
 	private JLabel sectionLabel = new JLabel("Section Number:");
 	/**
-	 * TextField for the course section.
+	 * TextField for the section number.
 	 */
 	private JTextField sectionTextField = new JTextField(10);
 	/**
-	 * Button to add course to student courses.
+	 * Button for remove the course from the students course list.
 	 */
-	private JButton addCourseButton = new JButton("Add Course");
+	private JButton removeCourseButton = new JButton("Remove Course");
 	/**
 	 * Return to Main Button that starts action close this InsertPanel.
 	 */
@@ -59,9 +63,9 @@ public class AddCoursePanel extends JFrame{
 	/**
 	 * Constructs InserPanel with all components
 	 */
-	public AddCoursePanel()
+	public RemoveCoursePanel()
 	{
-		super("Add Course");
+		super("Remove Course");
 
 		JPanel insertPanel = new JPanel(new BorderLayout());
 		setSize(400, 175);
@@ -79,7 +83,7 @@ public class AddCoursePanel extends JFrame{
 		centerPanel.add(sectionLabel);
 		centerPanel.add(sectionTextField);
 		
-		southPanel.add(addCourseButton);
+		southPanel.add(removeCourseButton);
 		southPanel.add(returnToMainButton);
 		
 		add(insertPanel);
@@ -97,17 +101,17 @@ public class AddCoursePanel extends JFrame{
 	}
 	
 	/**
-	 * Adds Listener to the Add Course button
+	 * Adds Listener to the Insert Button.
 	 * @param actionListener Action Listener for the button.
 	 */
-	public void addAddCoursePanelActionListener(ActionListener actionListener)
+	public void addRemoveCoursePanelActionListener(ActionListener actionListener)
 	{
-		addCourseButton.addActionListener(actionListener);
+		removeCourseButton.addActionListener(actionListener);
 	}
 
 	/**
-	 * Gets faculty entered in the faculty TextField.
-	 * @return String of faculty.
+	 * Gets the faculty entered in the faculty TextField.
+	 * @return String of the faculty.
 	 */
 	public String getFaculty()
 	{
@@ -123,11 +127,11 @@ public class AddCoursePanel extends JFrame{
 	}
 	/**
 	 * Gets the section number entered in the section number TextField.
-	 * @return Integer of section number. 
+	 * @return
 	 */
 	public int getSection()
 	{
 		return Integer.parseInt(sectionTextField.getText());
 	}
-
+	
 }

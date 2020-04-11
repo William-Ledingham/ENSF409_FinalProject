@@ -53,7 +53,6 @@ public class ServerCommController {
 				socketIn = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
 				socketOut = new PrintWriter(aSocket.getOutputStream(), true);
 
-				
 				databaseController = new DBController(socketIn, socketOut);
 				pool.execute(databaseController);
 				

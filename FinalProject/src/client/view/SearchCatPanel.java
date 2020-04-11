@@ -5,30 +5,36 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
 
 /**
  * Provides data members and methods to create a JFrame that is meant to be auxiliary to the main GUI frame.
- * Provides TextFields to enter information for a course to be added to a students course list.
+ * Provides TextFields to enter information to search the course catalogue for a course.
  * 
  * @author William Ledingham
  * @version 1.0
  * @since 2020-04-10
  *
  */
-public class AddCoursePanel extends JFrame{
+public class SearchCatPanel extends JFrame{
 
+	
 	/**
 	 * Title at top of the panel.
 	 */
-	private JLabel title = new JLabel("Add New Course");
+	private JLabel title = new JLabel("Search Course Catalogue");
 	
 	/**
 	 * Label for the Faculty TextField.
 	 */
 	private JLabel facultyLabel = new JLabel("Faculty:");
 	/**
-	 * TextField for the course Faculty.
+	 * TextField for the Faculty.
 	 */
 	private JTextField facultyTextField = new JTextField(10);
 	/**
@@ -36,21 +42,13 @@ public class AddCoursePanel extends JFrame{
 	 */
 	private JLabel courseIdLabel = new JLabel("Course ID:");
 	/**
-	 * TextField for the course id.
+	 * TextField to enter the course id.
 	 */
 	private JTextField courseIdTextField = new JTextField(10);
 	/**
-	 * Label for the section number TextField.
+	 * Button to start searching for a course using the information provided.
 	 */
-	private JLabel sectionLabel = new JLabel("Section Number:");
-	/**
-	 * TextField for the course section.
-	 */
-	private JTextField sectionTextField = new JTextField(10);
-	/**
-	 * Button to add course to student courses.
-	 */
-	private JButton addCourseButton = new JButton("Add Course");
+	private JButton searchButton = new JButton("Search");
 	/**
 	 * Return to Main Button that starts action close this InsertPanel.
 	 */
@@ -59,9 +57,9 @@ public class AddCoursePanel extends JFrame{
 	/**
 	 * Constructs InserPanel with all components
 	 */
-	public AddCoursePanel()
+	public SearchCatPanel()
 	{
-		super("Add Course");
+		super("Search Course Catalogue");
 
 		JPanel insertPanel = new JPanel(new BorderLayout());
 		setSize(400, 175);
@@ -76,10 +74,9 @@ public class AddCoursePanel extends JFrame{
 		centerPanel.add(facultyTextField);
 		centerPanel.add(courseIdLabel);
 		centerPanel.add(courseIdTextField);
-		centerPanel.add(sectionLabel);
-		centerPanel.add(sectionTextField);
+
 		
-		southPanel.add(addCourseButton);
+		southPanel.add(searchButton);
 		southPanel.add(returnToMainButton);
 		
 		add(insertPanel);
@@ -97,17 +94,17 @@ public class AddCoursePanel extends JFrame{
 	}
 	
 	/**
-	 * Adds Listener to the Add Course button
+	 * Adds Listener to the Insert Button.
 	 * @param actionListener Action Listener for the button.
 	 */
-	public void addAddCoursePanelActionListener(ActionListener actionListener)
+	public void addSearchPanelActionListener(ActionListener actionListener)
 	{
-		addCourseButton.addActionListener(actionListener);
+		searchButton.addActionListener(actionListener);
 	}
 
 	/**
-	 * Gets faculty entered in the faculty TextField.
-	 * @return String of faculty.
+	 * Gets the faculty entered in the faculty TextField.
+	 * @return String of text in the faculty TextField.
 	 */
 	public String getFaculty()
 	{
@@ -115,19 +112,14 @@ public class AddCoursePanel extends JFrame{
 	}
 	/**
 	 * Gets the course id entered in the course id TextField.
-	 * @return Integer of course id.
+	 * @return Integer of the course id entered in the TextField.
 	 */
 	public int getCourseId()
 	{
 		return Integer.parseInt(courseIdTextField.getText());
 	}
-	/**
-	 * Gets the section number entered in the section number TextField.
-	 * @return Integer of section number. 
-	 */
-	public int getSection()
-	{
-		return Integer.parseInt(sectionTextField.getText());
-	}
 
+
+	
+	
 }
