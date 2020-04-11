@@ -2,16 +2,17 @@ package client.view;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
 /**
- * Provides data members and methods to create the GUI for the Student Records program. Acts as the View in the MVC architecture.
+ * Provides data members and methods to create the GUI for the Student Records program. 
  * 
- * @author William Ledingham, Parker Link, Michaela Gartner
- * @version 1.0
+ * @author William Ledingham
+ * @version 2.0
  * @since 2020-04-03
  *
  */
@@ -21,36 +22,58 @@ public class GUI extends JFrame {
 	 * Title at top of the panel.
 	 */
 	private JLabel programTitle = new JLabel("An Application to Maintain Student Records");
-	
 	/**
-	 * Text Area in the middle of the panel to display the student records.
+	 * Title of course catalogue text area.
 	 */
-	private JTextArea textArea = new JTextArea("");
+	private JLabel courseCatTitle = new JLabel("Course Catalogue");
 	/**
-	 * Scroll bar for the text area to view all of the student records.
+	 * Title of student courses text area.
 	 */
-	private JScrollPane scrollPane = new JScrollPane(textArea);
-	
+	private JLabel studentCoursesTitle = new JLabel("Student Classes");
 	/**
-	 * Insert Button at bottom of panel to start action to insert a new student record.
+	 * Text Area in the middle of the panel to display the course catalogue.
 	 */
-	private JButton insertButton = new JButton("Insert");
+	private JTextArea courseCatTextArea = new JTextArea("");
 	/**
-	 * Find Button at bottom of panel to start action to search for a record.
+	 * Scroll bar for the text area to view all courses in course catalogue
 	 */
-	private JButton findButton = new JButton("Find");
+	private JScrollPane courseCatscrollPane = new JScrollPane(courseCatTextArea);
 	/**
-	 * Browse Button at bottom of panel to start action to refresh the text area with all records.
+	 * Text Area in the middle of the panel to display all of a students courses.
 	 */
-	private JButton browseButton = new JButton("Browse");
+	private JTextArea studentCoursesTextArea = new JTextArea("");
 	/**
-	 * Create Tree from File Button at bottom of panel to start action to read textfile for records.
+	 * Scroll bar for the text area to view all students courses.
 	 */
-	private JButton createTreeButton = new JButton("Create Tree from File");
+	private JScrollPane studentCoursesScrollPane = new JScrollPane(studentCoursesTextArea);
 	/**
-	 * Auxiliary panel with fields to add a record.
+	 * Button to refresh the contents of the two text areas.
 	 */
-	private InsertPanel insertPanel;
+	private JButton refreshButton = new JButton("Refresh");
+	/**
+	 * Button to search course catalogue and display results
+	 */
+	private JButton searchCatButton = new JButton("Search Catalogue");
+	/**
+	 * Button to add course to students course list.
+	 */
+	private JButton addCourseButton = new JButton("Add Course");
+	/**
+	 * Button to remove course from students course list.
+	 */
+	private JButton removeCourseButton = new JButton("Remove Course");
+	/**
+	 * JFrame used to collect information from user to add a course to students course list.
+	 */
+	private AddCoursePanel addCoursePanel;
+	/**
+	 * JFrame used to collect information from user to remove a course from students course list.
+	 */
+	private RemoveCoursePanel removeCoursePanel;
+	/**
+	 * JFrame used to collect information from user to search the course catalogue.
+	 */
+	private SearchCatPanel searchCatPanel;
 	
 	/**
 	 * Constructs the GUI with all components.
@@ -60,58 +83,91 @@ public class GUI extends JFrame {
 		super("Student Records");
 		
 		JPanel mainPanel = new JPanel(new BorderLayout());
-		setSize(500, 350);
+		setSize(800, 500);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JPanel northPanel = new JPanel(new FlowLayout());
-				
-		northPanel.add(programTitle);
+		JPanel northPanel = new JPanel(new GridLayout(2, 0));
 		
-		scrollPane.setBounds(10, 60, 780, 500);
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		textArea.setEditable(false);
-		mainPanel.add("Center", scrollPane);
+		JPanel northBottomPanel = new JPanel(new GridLayout(0, 2));
+		JPanel northTopPanel = new JPanel(new FlowLayout());
+		northTopPanel.add(programTitle);
+		
+		northBottomPanel.add(courseCatTitle);
+		northBottomPanel.add(studentCoursesTitle);
+		northPanel.add(northTopPanel);
+		northPanel.add(northBottomPanel);
+	
+		JPanel centerPanel = new JPanel(new GridLayout(0, 2));
+		
+
+		
+		courseCatscrollPane.setBounds(10, 60, 780, 500);
+		courseCatscrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		courseCatTextArea.setEditable(false);
+		centerPanel.add(courseCatscrollPane);
+		
+		
+		studentCoursesScrollPane.setBounds(10, 60, 780, 500);
+		studentCoursesScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		studentCoursesTextArea.setEditable(false);
+		centerPanel.add(studentCoursesScrollPane);
 		
 		JPanel southPanel = new JPanel(new FlowLayout());
 		
-		southPanel.add(insertButton);
-		southPanel.add(findButton);
-		southPanel.add(browseButton);
-		southPanel.add(createTreeButton);
+		southPanel.add(searchCatButton);
+		southPanel.add(refreshButton);
+		southPanel.add(addCourseButton);
+		southPanel.add(removeCourseButton);
 
 		add(mainPanel);
 		mainPanel.add(southPanel, BorderLayout.SOUTH);
 		mainPanel.add(northPanel, BorderLayout.NORTH);
+		mainPanel.add(centerPanel, BorderLayout.CENTER);
 		
-		insertPanel = new InsertPanel();
-		
+		addCoursePanel = new AddCoursePanel();
+		removeCoursePanel = new RemoveCoursePanel();
+		searchCatPanel = new SearchCatPanel();
 	}
 	
 	/**
-	 * Opens or makes visible the insertPanel to prompt user for new record information.
+	 * Makes the AddCourse window visible.
 	 */
-	public void openInsertPanel()
+	public void openAddCourseFrame()
 	{
-		insertPanel.setVisible(true);
+		addCoursePanel.setVisible(true);
+	}
+	/**
+	 * Makes the RemoveCourse window visible.
+	 */
+	public void openRemoveCourseFrame()
+	{
+		removeCoursePanel.setVisible(true);
+	}
+	/**
+	 * Makes the SearchCatalogue window visible.
+	 */
+	public void openSearchCatPanel()
+	{
+		searchCatPanel.setVisible(true);
 	}
 	
 	/**
-	 * Prompts user with a dialog box for the a textfile name.
-	 * @return A String of the name entered.
+	 * Sets the text in the course catalogue text area.
+	 * @param s String to be printed to text area.
 	 */
-	public String inputDialogBoxFileName()
+	public void printToCourseCatTextArea(String s)
 	{
-		return JOptionPane.showInputDialog("Enter the file name:");
+		courseCatTextArea.setText(s);
+	}
+	/**
+	 * Sets the text in the student courses text area.
+	 * @param s String to be printed to text area.
+	 */
+	public void printToStudentCoursesTextArea(String s)
+	{
+		studentCoursesTextArea.setText(s);
 	}
 	
-	/**
-	 * Sets the text in the text area.
-	 * @param s String of text to written to the text area.
-	 */
-	public void printToTextArea(String s)
-	{
-		textArea.setText(s);
-	}
 	
 	/**
 	 * Prompts user with a dialog box for a students id.
@@ -119,82 +175,103 @@ public class GUI extends JFrame {
 	 */
 	public String inputDialogBoxStudentID()
 	{
-		return JOptionPane.showInputDialog("Please enter the student's id:");
+		return JOptionPane.showInputDialog("Please enter the student id:");
 	}
+
+	
 	/**
-	 * Shows message box with information of a student.
-	 * @param id Students id
-	 * @param faculty Students faculty
-	 * @param major Students major
-	 * @param year Students year
+	 * Shows message dialog box with specific string.
+	 * @param s Message to be printed in message box.
 	 */
-	public void outputMessageStudent(String id, String faculty, String major, String year)
+	public void outputCourseInfo(String s)
 	{
-		JOptionPane.showMessageDialog(this, "id: " + id + "\nfaculty: " + faculty + "\nmajor: " + major + "\nyear: " + year);
+		JOptionPane.showMessageDialog(this, s);
 	}
 	
 	/**
-	 * Adds Listener to the Create Tree Button.
-	 * @param actionListener Action Listener for the button.
+	 * Adds listener to the searchCatButton.
+	 * @param actionListener
 	 */
-	public void addCreateTreeListener(ActionListener actionListener)
+	public void addSearchCatButtonListener(ActionListener actionListener)
 	{
-		createTreeButton.addActionListener(actionListener);
+		searchCatButton.addActionListener(actionListener);
 	}
 	/**
-	 * Adds Listener to the Browse Button.
-	 * @param actionListener Action Listener for the button.
+	 * Adds listener to the refreshButton.
+	 * @param actionListener
 	 */
-	public void addBrowseButtonListener(ActionListener actionListener)
+	public void addRefreshButtonListener(ActionListener actionListener)
 	{
-		browseButton.addActionListener(actionListener);
+		refreshButton.addActionListener(actionListener);
 	}
 	/**
-	 * Adds Listener to the Find Button.
-	 * @param actionListener Action Listener for the button.
+	 * Adds listener to the addCourseButton.
+	 * @param actionListener
 	 */
-	public void addFindButtonListener(ActionListener actionListener)
+	public void addAddCourseButtonListener(ActionListener actionListener)
 	{
-		findButton.addActionListener(actionListener);
+		addCourseButton.addActionListener(actionListener);
 	}
 	/**
-	 * Adds Listener to the Insert Button.
-	 * @param actionListener Action Listener for the button.
+	 * Adds listener to the removeCourseButton.
+	 * @param actionListener
 	 */
-	public void addInsertButtonListener(ActionListener actionListener)
+	public void addRemoveCourseButtonListener(ActionListener actionListener)
 	{
-		insertButton.addActionListener(actionListener);
+		removeCourseButton.addActionListener(actionListener);
 	}
 	/**
-	 * Sends ActionListener to the insertPanel for use.
-	 * @param actionListener Action Listener for the button.
+	 * Adds listener to the Add Course button on the AddCoursePanel.
+	 * @param actionListener
 	 */
-	public void addInsertButtonInsertFrameListener(ActionListener actionListener)
+	public void addAddCoursePanelButtonListener(ActionListener actionListener)
 	{
-		insertPanel.addInsertButtonInsertFrameListener(actionListener);
+		addCoursePanel.addAddCoursePanelActionListener(actionListener);
+	}
+	/**
+	 * Adds listener to the Remove Course button on the RemoveCoursePanel.
+	 * @param actionListener
+	 */
+	public void addRemoveCoursePanelButtonListener(ActionListener actionListener)
+	{
+		removeCoursePanel.addRemoveCoursePanelActionListener(actionListener);
+	}
+	/**
+	 * Adds listener to the Search Catalogue button on the SearchCatPanel.
+	 * @param actionListener
+	 */
+	public void addSearchCatPanelButtonListener(ActionListener actionListener)
+	{
+		searchCatPanel.addSearchPanelActionListener(actionListener);
 	}
 	
 	/**
-	 * Gets the insertPanel.
-	 * @return Returns InsertPanel
+	 * Gets AddCoursePanel to access information gathered by it.
+	 * @return AddCoursePanel
 	 */
-	public InsertPanel getInsertPanel()
+	public AddCoursePanel getAddCoursePanel()
 	{
-		return insertPanel;
+		return addCoursePanel;
+	}
+	/**
+	 * Gets RemoveCoursePanel to access information gathered by it.
+	 * @return
+	 */
+	public RemoveCoursePanel getRemoveCoursePanel()
+	{
+		return removeCoursePanel;
+	}
+	/**
+	 * Gets SearchCatPanel to access information gathered by it.
+	 * @return
+	 */
+	public SearchCatPanel getSearchCatPanel()
+	{
+		return searchCatPanel;
 	}
 	
 	
-	/*
-	public static void main( String[] args)
-	{
-		System.out.println("Start Program");
-		GUI myApp = new GUI();
-		myApp.setVisible(true);
-		
-		BSTModel model = new BSTModel();
-		
-		Controller controller = new Controller(myApp, model);
-	}
-	*/
+
+	
 	
 }

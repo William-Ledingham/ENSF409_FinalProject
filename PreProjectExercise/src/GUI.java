@@ -65,10 +65,14 @@ public class GUI extends JFrame {
 				
 		northPanel.add(programTitle);
 		
+		JPanel centerPanel = new JPanel(new BorderLayout());//new FlowLayout());
+		
 		scrollPane.setBounds(10, 60, 780, 500);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		textArea.setEditable(false);
-		mainPanel.add("Center", scrollPane);
+		//mainPanel.add("Center", scrollPane);
+		centerPanel.add(scrollPane, BorderLayout.CENTER);
+
 		
 		JPanel southPanel = new JPanel(new FlowLayout());
 		
@@ -80,6 +84,7 @@ public class GUI extends JFrame {
 		add(mainPanel);
 		mainPanel.add(southPanel, BorderLayout.SOUTH);
 		mainPanel.add(northPanel, BorderLayout.NORTH);
+		//mainPanel.add(centerPanel, BorderLayout.CENTER);
 		
 		insertPanel = new InsertPanel();
 		
