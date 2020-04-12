@@ -2,6 +2,8 @@ package server.model;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -22,70 +24,72 @@ public class DBManager {
 		studentList = new ArrayList<Student>();
 		cat = new CourseCatalogue();
 		cat.setCourseList(courseList);
-		readCoursesFromDataBase();
-		readStudentsFromDatabase();
+		cat =readCoursesFromDataBase();
+		studentList =readStudentsFromDatabase();
 	}
 
+	
 	public CourseCatalogue readCoursesFromDataBase() {
-		// TODO Auto-generated method stub
-		/*
-		courseList.add(new Course ("ENGG", 233));
-		courseList.add(new Course ("ENSF", 409));
-		courseList.add(new Course ("PHYS", 259));
-		
-		cat.setCourseList(courseList);
-		cat.createCourseOffering(courseList.get(0), 1, 100);
-		cat.createCourseOffering(courseList.get(0), 2, 200);
-		cat.createCourseOffering(courseList.get(1), 1, 100);
-		cat.createCourseOffering(courseList.get(2), 1, 100);
-
-		
-		*/
-		try 
+		ObjectInputStream input = null;
+		String fileName = "courseCatalogue.ser";
+		CourseCatalogue courseCat =null;		        
+		try
 		{
-			Scanner sc = new Scanner(new FileInputStream("Courses.txt"));
-			
-			int i = -1;
-			while(sc.hasNextLine())
-			{
-				
-				String [] input = sc.nextLine().split("\\s+");
-				if(input[0].trim().compareTo("--") == 0)
-				{
-					input = sc.nextLine().split("\\s+");
-					courseList.add(new Course (input[0], Integer.parseInt(input[1])));
-					i++;
-				}
-				else
-				{
-					cat.createCourseOffering(courseList.get(i), Integer.parseInt(input[0]), Integer.parseInt(input[1]));
-				}
-			}	
-		} 
-		catch (FileNotFoundException e) 
-		{
-			e.printStackTrace();
+			input = new ObjectInputStream(new FileInputStream( fileName ) );
 		}
+		catch ( IOException ioException )
+		{
+			System.err.println( "Error opening file." );
+		}		        
+		try
+		{
+			while ( true )
+		    {
+				courseCat = (CourseCatalogue)input.readObject();
+		       // System.out.println(courseCat.toString());
+		     }   
+		 }catch(Exception e) {
+			 System.out.println("done reading file");
+		 }
+		return courseCat;
 		
+	}
+	public void WriteCourseCatalogue() {
 		
+	}
+	public ArrayList<Student> readStudentsFromDatabase() {
+		ObjectInputStream input = null;
+		String fileName = "studentList.ser";
+		ArrayList <Student> studentList = new ArrayList<Student>();	        
+		//StudentList list = new StudentList();
+		Student s;
 		
-		return cat;
-		
+		try
+		{
+			input = new ObjectInputStream(new FileInputStream( fileName ) );
+		}
+		catch ( IOException ioException )
+		{
+			System.err.println( "Error opening file." );
+		}		        
+		try
+		{
+			while ( true )
+		    {
+				
+				s = (Student)input.readObject();
+		       // System.out.println(s.toString());
+		        studentList.add(s);
+		     }   
+		 }catch(Exception e) {
+			 System.out.println("done reading file");
+		 }
+		return studentList;
 		
 	}
 	
-	public ArrayList<Student> readStudentsFromDatabase()
-	{
-
-		studentList.add(new Student ("Sara", 1));
-		studentList.add(new Student ("Grace", 2));
-		studentList.add(new Student ("Matt", 3));
-		studentList.add(new Student ("Will", 4));
-		
-
-
-		return studentList;
-	}
+	
+	
 	
 	public Student UserSearchCourseList()
 	{
