@@ -104,6 +104,8 @@ public class ServerCommController {
 	}
 	
 	public static void main(String[] args) {
+		System.out.println("Starting server...");
+		
 		ServerCommController serverComm = new ServerCommController(9090);
 		
 		serverComm.runServer();

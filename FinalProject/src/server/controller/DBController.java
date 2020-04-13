@@ -38,6 +38,13 @@ public class DBController implements Runnable {
 				System.err.println("Error receiving from client.");
 				e.printStackTrace();
 			}
+			
+			if (rx.getAction().equals("AddCourse")) {
+				System.out.println("Options Length: " + rx.getOptions().size() + ": " + rx.getOptions().get(0) + "|" + rx.getOptions().get(1));
+				
+				databaseManager.addCourseOffering(rx.getOptions().get(0), 
+						Integer.parseInt(rx.getOptions().get(1)), Integer.parseInt(rx.getOptions().get(2)));
+			}
 		}
 	}
 	

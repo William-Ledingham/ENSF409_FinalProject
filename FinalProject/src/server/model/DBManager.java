@@ -1,7 +1,6 @@
 package server.model;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
@@ -22,12 +21,12 @@ public class DBManager {
 		studentList = new ArrayList<Student>();
 		cat = new CourseCatalogue();
 		cat.setCourseList(courseList);
-		cat =readCoursesFromDataBase();
-		studentList =readStudentsFromDatabase();
+		cat = readCoursesFromDatabase();
+		studentList = readStudentsFromDatabase();
 	}
 
 	
-	public CourseCatalogue readCoursesFromDataBase() {
+	public CourseCatalogue readCoursesFromDatabase() {
 		ObjectInputStream input = null;
 		String fileName = "courseCatalogue.ser";
 		CourseCatalogue courseCat =null;		        
@@ -111,8 +110,17 @@ public class DBManager {
 		return cat;
 	}
 	
-	public void addCourseOffering(CourseOffering courseToAdd) {
+	/**
+	 * Adds a course offering (and course) to the database.
+	 * @param faculty
+	 * @param courseNumber
+	 * @param lectNumber
+	 */
+	public void addCourseOffering(String faculty, int courseNumber, int lectNumber) {
+		cat.createCourseOffering(new Course(faculty, courseNumber), lectNumber, 100);
 		
+		System.out.println("With new course added, we having the following courses: ");
+		System.out.println(cat);
 	}
 
 }

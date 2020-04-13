@@ -5,6 +5,8 @@ import shared.model.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Main entry point for the client. Contains the {@code static main} method
@@ -95,9 +97,12 @@ public class ClientController {
 		public void actionPerformed(ActionEvent e) 
 		{
 			System.out.println("Adding a new course!");
+			AddCoursePanel panel = theView.getAddCoursePanel();
 			Transmission transmission = new Transmission("AddCourse", 
-					new Course(theView.getAddCoursePanel().getFaculty(), theView.getAddCoursePanel().getCourseId()));
+					new ArrayList<String>(Arrays.asList(panel.getFaculty(), panel.getCourseId(), panel.getSection())));
 			
+					//new Course(theView.getAddCoursePanel().getFaculty(), theView.getAddCoursePanel().getCourseId()));
+			clientComm.sendTransmission(transmission);
 			
 			//Close the window when the add course button is hit
 			theView.getAddCoursePanel().dispose();
@@ -118,7 +123,7 @@ public class ClientController {
 	class SearchCatPanelListener implements ActionListener
 	{
 		@Override
-		public void actionPerformed(ActionEvent e) 
+		public void actionPerformed(ActionEvent e)
 		{
 
 			//Close the window when the add course button is hit
@@ -129,7 +134,7 @@ public class ClientController {
 	
 	public static void main( String[] args)
 	{
-		System.out.println("Start Program");
+		System.out.println("Starting Client...");
 		GUI myApp = new GUI();
 		myApp.setVisible(true);
 		

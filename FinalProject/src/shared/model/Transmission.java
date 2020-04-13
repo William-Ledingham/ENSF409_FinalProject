@@ -1,6 +1,7 @@
 package shared.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Represents a single transmission from client-to-server, or from server-to-client. 
@@ -29,11 +30,24 @@ public class Transmission implements Serializable {
 	 * Contents of the transmission. This can be a Student, Class, ArrayList<Class>, etc.
 	 */
 	private Object contents;
+	
+	/**
+	 * Options for the action, as any types of Strings.
+	 * - For AddClass action: [faculty, courseNumber, lect number]
+	 */
+	private ArrayList<String> options;
 
 
-	public Transmission(String action, Object contents) {
+	public Transmission(String action, Object contents, ArrayList<String> options) {
 		this.action = action;
 		this.contents = contents;
+		this.options = options;
+	}
+	
+	public Transmission(String action, ArrayList<String> options) {
+		this.action = action;
+		this.contents = null;
+		this.options = options;
 	}
 	
 	/**
@@ -51,6 +65,16 @@ public class Transmission implements Serializable {
 	public Object getContents() {
 		return contents;
 	}
+	
+	/**
+	 * Gets the options of the transmission.
+	 * @return the options of the transmission
+	 */
+	public ArrayList<String> getOptions() {
+		return options;
+	}
+	
+	
 	
 	
 

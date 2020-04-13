@@ -117,17 +117,19 @@ public class AddCoursePanel extends JFrame{
 	 * Gets the course id entered in the course id TextField.
 	 * @return Integer of course id.
 	 */
-	public int getCourseId()
+	public String getCourseId()
 	{
-		return Integer.parseInt(courseIdTextField.getText());
+		//return Integer.parseInt(courseIdTextField.getText());
+		return courseIdTextField.getText();
 	}
 	/**
 	 * Gets the section number entered in the section number TextField.
 	 * @return Integer of section number. 
 	 */
-	public int getSection()
+	public String getSection()
 	{
-		return Integer.parseInt(sectionTextField.getText());
+		//return Integer.parseInt(sectionTextField.getText());
+		return sectionTextField.getText();
 	}
 
 }
