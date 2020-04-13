@@ -1,15 +1,13 @@
 package client.controller;
 
 import client.view.*;
+import shared.model.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-
 
 /**
+ * Main entry point for the client. Contains the {@code static main} method
  * 
  * @author William Ledingham
  * @version 1.0
@@ -18,17 +16,21 @@ import java.util.Scanner;
  */
 public class ClientController {
 
-	
-
 	/**
 	 * The View that implements the GUI for the program
 	 */
 	private GUI theView;
+	
+	/**
+	 * Connection from client to server. Made in constructor (composition relationship).
+	 */
+	private ClientCommunicator clientComm;
 
 	
 	public ClientController(GUI theView)
 	{
 		this.theView = theView;
+		this.clientComm = new ClientCommunicator();
 		
 		theView.addSearchCatButtonListener(new SearchCatButtonListener());
 		theView.addRefreshButtonListener(new RefreshButtonListener());
@@ -92,7 +94,11 @@ public class ClientController {
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
-
+			System.out.println("Adding a new course!");
+			Transmission transmission = new Transmission("AddCourse", 
+					new Course(theView.getAddCoursePanel().getFaculty(), theView.getAddCoursePanel().getCourseId()));
+			
+			
 			//Close the window when the add course button is hit
 			theView.getAddCoursePanel().dispose();
 		}

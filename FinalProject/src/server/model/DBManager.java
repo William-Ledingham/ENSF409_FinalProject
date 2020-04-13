@@ -7,9 +7,7 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import shared.model.Course;
-import shared.model.CourseCatalogue;
-import shared.model.Student;
+import shared.model.*;
 
 //This class is simulating a database for our
 //program
@@ -111,6 +109,10 @@ public class DBManager {
 	public CourseCatalogue getCourseCatalogue()
 	{
 		return cat;
+	}
+	
+	public void addCourseOffering(CourseOffering courseToAdd) {
+		
 	}
 
 }
