@@ -41,16 +41,25 @@ public class DBController implements Runnable {
 			
 			if (rx.getAction().equals("AddCourse")) {
 				System.out.println("Adding new course to student...");
+				String message = "";
 				
 				String courseName = rx.getOptions().get(0);
-				int courseNum = Integer.parseInt(rx.getOptions().get(1));
-				int courseSec = Integer.parseInt(rx.getOptions().get(2));
-				int studentID = (Integer)rx.getContents();
-				
-				// Add the Course
-				Student student = databaseManager.getStudentByID(studentID);
-				String message = student.registerStudentInCourse(databaseManager.getCourseCatalogue(), courseName, courseNum, courseSec);
-				//String message = student.registerStudentInCourse(databaseManager.getCourseCatalogue(), "ENSF", 409, 1);
+				int courseNum = 0, courseSec = 0;
+				try {
+					courseNum = Integer.parseInt(rx.getOptions().get(1));
+					courseSec = Integer.parseInt(rx.getOptions().get(2));
+				}
+				catch (NumberFormatException e) {
+					message = "Invalid Course Number/Section Number. Please provide numbers.";
+				}
+				if (message.equals("")) {
+					int studentID = (Integer)rx.getContents();
+					
+					// Add the Course
+					Student student = databaseManager.getStudentByID(studentID);
+					message = student.registerStudentInCourse(databaseManager.getCourseCatalogue(), courseName, courseNum, courseSec);
+					//String message = student.registerStudentInCourse(databaseManager.getCourseCatalogue(), "ENSF", 409, 1);
+				}
 				
 				Transmission tx = new Transmission("Message", (Object)message);
 				try {
@@ -61,18 +70,27 @@ public class DBController implements Runnable {
 				}
 			}
 			
-			if (rx.getAction().equals("DeleteCourse")) {
+			else if (rx.getAction().equals("RemoveCourse")) {
 				System.out.println("Delete course from student...");
+				String message = "";
 				
 				String courseName = rx.getOptions().get(0);
-				int courseNum = Integer.parseInt(rx.getOptions().get(1));
-				int courseSec = Integer.parseInt(rx.getOptions().get(2));
-				int studentID = (Integer)rx.getContents();
-				
-				// Add the Course
-				Student student = databaseManager.getStudentByID(studentID);
-				String message = student.deleteStudentFromCourse(databaseManager.getCourseCatalogue(), courseName, courseNum, courseSec);
-				//String message = student.registerStudentInCourse(databaseManager.getCourseCatalogue(), "ENSF", 409, 1);
+				int courseNum = 0, courseSec = 0;
+				try {
+					courseNum = Integer.parseInt(rx.getOptions().get(1));
+					courseSec = Integer.parseInt(rx.getOptions().get(2));
+				}
+				catch (NumberFormatException e) {
+					message = "Invalid Course Number/Section Number. Please provide numbers.";
+				}
+				if (message.equals("")) {
+					int studentID = (Integer)rx.getContents();
+					
+					// Add the Course
+					Student student = databaseManager.getStudentByID(studentID);
+					message = student.deleteStudentFromCourse(databaseManager.getCourseCatalogue(), courseName, courseNum, courseSec);
+					//String message = student.registerStudentInCourse(databaseManager.getCourseCatalogue(), "ENSF", 409, 1);
+				}
 				
 				Transmission tx = new Transmission("Message", (Object)message);
 				try {
@@ -83,7 +101,7 @@ public class DBController implements Runnable {
 				}
 			}
 			
-			if (rx.getAction().equals("RefreshCatalogue")) {
+			else if (rx.getAction().equals("RefreshCatalogue")) {
 				System.out.println("Refreshing Course Catalogue");
 				
 				Transmission tx = new Transmission("RespondCatalogue", (Object)databaseManager.getCourseCatalogue());
@@ -96,7 +114,7 @@ public class DBController implements Runnable {
 				}
 			}
 			
-			if (rx.getAction().equals("RefreshStudent")) {
+			else if (rx.getAction().equals("RefreshStudent")) {
 				System.out.println("Refreshing Student");
 				
 				int studentID = (Integer)rx.getContents();
@@ -111,6 +129,10 @@ public class DBController implements Runnable {
 					System.err.println("Error sending response (server-to-client)");
 					e.printStackTrace();
 				}
+			}
+			
+			else {
+				System.err.println("Unknown Transmission Action: " + rx.getAction());
 			}
 		}
 	}

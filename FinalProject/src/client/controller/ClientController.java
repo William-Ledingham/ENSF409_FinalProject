@@ -46,7 +46,6 @@ public class ClientController {
 		
 		theView.addAddCoursePanelButtonListener(new AddCoursePanelListener());
 		theView.addRemoveCoursePanelButtonListener(new RemoveCoursePanelListener());
-		theView.addRemoveCoursePanelButtonListener(new RemoveCoursePanelListener());
 		theView.addSearchCatPanelButtonListener(new SearchCatPanelListener());
 
 		// Prompt the User for Student ID
@@ -133,7 +132,7 @@ public class ClientController {
 		{
 			System.out.println("Removing a course...");
 			RemoveCoursePanel panel = theView.getRemoveCoursePanel();
-			Transmission transmission = new Transmission("AddCourse", (Object)studentID,
+			Transmission transmission = new Transmission("RemoveCourse", (Object)studentID,
 					new ArrayList<String>(Arrays.asList(panel.getFaculty(), panel.getCourseId(), panel.getSection())));
 			
 			String resultMessage = (String)clientComm.sendTransmission(transmission, true).getContents();

@@ -136,7 +136,7 @@ public class Student implements Serializable {
 		
 		this.deleteRegistration(course);
 		
-		return "Successfully remove you from the course!";
+		return "Successfully removed you from the course!";
 	}
 	
 	

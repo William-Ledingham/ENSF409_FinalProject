@@ -175,7 +175,7 @@ public class GUI extends JFrame {
 	 */
 	public String inputDialogBoxStudentID()
 	{
-		return JOptionPane.showInputDialog("Please enter the student id:");
+		return JOptionPane.showInputDialog("Please enter the Student ID:");
 	}
 
 	
