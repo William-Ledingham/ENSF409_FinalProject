@@ -1,19 +1,27 @@
-package shared.model;
+package server.model;
 
-public class Registration {
+import java.io.Serializable;
+
+public class Registration implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	
 	private Student theStudent;
 	private CourseOffering theOffering;
 	private char grade;
 	
-	void completeRegistration (Student st, CourseOffering of) {
-		theStudent = st;
-		theOffering = of;
-		addRegistration ();
+	public Registration (Student student, CourseOffering offering) {
+		theStudent = student;
+		theOffering = offering;
 	}
-	
 
-	
-	private void addRegistration () {
+	/**
+	 * Adds this registration to the student and to the offering (all places that store the registration).
+	 */
+	public void addRegistration () {
 		theStudent.addRegistration(this);
 		theOffering.addRegistration(this);
 	}

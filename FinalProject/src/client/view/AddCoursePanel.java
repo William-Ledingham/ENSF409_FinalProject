@@ -19,6 +19,11 @@ import javax.swing.*;
 public class AddCoursePanel extends JFrame{
 
 	/**
+	 * Serial ID for Serialization, never used here.
+	 */
+	private static final long serialVersionUID = 5282372481714419158L;
+
+	/**
 	 * Title at top of the panel.
 	 */
 	private JLabel title = new JLabel("Add New Course");
@@ -65,7 +70,6 @@ public class AddCoursePanel extends JFrame{
 
 		JPanel insertPanel = new JPanel(new BorderLayout());
 		setSize(400, 175);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel northPanel = new JPanel(new FlowLayout());
 		JPanel centerPanel = new JPanel(new FlowLayout());
@@ -117,17 +121,25 @@ public class AddCoursePanel extends JFrame{
 	 * Gets the course id entered in the course id TextField.
 	 * @return Integer of course id.
 	 */
-	public int getCourseId()
+	public String getCourseId()
 	{
-		return Integer.parseInt(courseIdTextField.getText());
+		//return Integer.parseInt(courseIdTextField.getText());
+		return courseIdTextField.getText();
 	}
 	/**
 	 * Gets the section number entered in the section number TextField.
 	 * @return Integer of section number. 
 	 */
-	public int getSection()
+	public String getSection()
 	{
-		return Integer.parseInt(sectionTextField.getText());
+		//return Integer.parseInt(sectionTextField.getText());
+		return sectionTextField.getText();
+	}
+	
+	public void clearFields() {
+		facultyTextField.setText("");
+		courseIdTextField.setText("");
+		sectionTextField.setText("");
 	}
 
 }

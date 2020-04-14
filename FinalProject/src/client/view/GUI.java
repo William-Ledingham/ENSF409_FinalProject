@@ -3,7 +3,6 @@ package client.view;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
@@ -18,6 +17,10 @@ import javax.swing.*;
  */
 public class GUI extends JFrame {
 
+	/**
+	 * Serial ID for Serialization, never used here.
+	 */
+	private static final long serialVersionUID = -8945395696233806297L;
 	/**
 	 * Title at top of the panel.
 	 */
@@ -83,8 +86,7 @@ public class GUI extends JFrame {
 		super("Student Records");
 		
 		JPanel mainPanel = new JPanel(new BorderLayout());
-		setSize(800, 500);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(900, 700);
 		
 		JPanel northPanel = new JPanel(new GridLayout(2, 0));
 		
@@ -175,7 +177,7 @@ public class GUI extends JFrame {
 	 */
 	public String inputDialogBoxStudentID()
 	{
-		return JOptionPane.showInputDialog("Please enter the student id:");
+		return JOptionPane.showInputDialog("Please enter the Student ID (ex: 1):");
 	}
 
 	
@@ -268,6 +270,16 @@ public class GUI extends JFrame {
 	public SearchCatPanel getSearchCatPanel()
 	{
 		return searchCatPanel;
+	}
+
+	/**
+	 * Displays a message box to the user to tell them how an action was completed.
+	 * Add fancy stuff later, if we want.
+	 * @param resultMessage The message to display to the user
+	 */
+	public void displayMessageBox(String message) {
+		JOptionPane.showMessageDialog(this, message);
+		
 	}
 	
 	

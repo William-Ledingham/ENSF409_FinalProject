@@ -21,9 +21,14 @@ import javax.swing.JTextField;
  * @since 2020-04-10
  *
  */
-public class SearchCatPanel extends JFrame{
+public class SearchCatPanel extends JFrame {
 
 	
+	/**
+	 * Serial ID for Serialization, never used here.
+	 */
+	private static final long serialVersionUID = 722563940237963896L;
+
 	/**
 	 * Title at top of the panel.
 	 */
@@ -63,7 +68,6 @@ public class SearchCatPanel extends JFrame{
 
 		JPanel insertPanel = new JPanel(new BorderLayout());
 		setSize(400, 175);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel northPanel = new JPanel(new FlowLayout());
 		JPanel centerPanel = new JPanel(new FlowLayout());
@@ -114,12 +118,15 @@ public class SearchCatPanel extends JFrame{
 	 * Gets the course id entered in the course id TextField.
 	 * @return Integer of the course id entered in the TextField.
 	 */
-	public int getCourseId()
+	public String getCourseId()
 	{
-		return Integer.parseInt(courseIdTextField.getText());
+		return courseIdTextField.getText();
 	}
 
-
+	public void clearFields() {
+		facultyTextField.setText("");
+		courseIdTextField.setText("");
+	}
 	
 	
 }

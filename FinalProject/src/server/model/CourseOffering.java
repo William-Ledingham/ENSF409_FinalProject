@@ -1,8 +1,15 @@
-package shared.model;
+package server.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class CourseOffering {
+public class CourseOffering implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	
 	private int secNum;
 	private int secCap;
@@ -37,17 +44,15 @@ public class CourseOffering {
 	public String toString () {
 		String st = "\n";
 		st += getTheCourse().getCourseName() + " " + getTheCourse().getCourseNum() + "\n";
-		st += "Section Num: " + getSecNum() + ", section cap: "+ getSecCap();
+		st += "Section Num: " + getSecNum() + ", Section Cap: "+ getSecCap();
 		if(offeringRegList.size() < 8)
 		{
-			st += ",  Offering doesn't have enough students to run";
+			st += ",  Offering Requires More Students to Run";
 		}
 		 st += "\n";
-		//We also want to print the names of all students in the section
 		return st;
 	}
 	public void addRegistration(Registration registration) {
-		// TODO Auto-generated method stub
 		offeringRegList.add(registration);
 		
 	}
