@@ -61,12 +61,8 @@ public class DBController implements Runnable {
 				}
 				
 				Transmission tx = new Transmission("Message", (Object)message);
-				try {
-					socketSend.writeObject((Object) tx);
-				} catch (IOException e) {
-					System.err.println("Error sending response (server-to-client)");
-					e.printStackTrace();
-				}
+
+				sendResponse(tx);
 			}
 			
 			else if (rx.getAction().equals("RemoveCourse")) {
@@ -91,12 +87,8 @@ public class DBController implements Runnable {
 				}
 				
 				Transmission tx = new Transmission("Message", (Object)message);
-				try {
-					socketSend.writeObject((Object) tx);
-				} catch (IOException e) {
-					System.err.println("Error sending response (server-to-client)");
-					e.printStackTrace();
-				}
+
+				sendResponse(tx);
 			}
 
 			else if (rx.getAction().equals("SearchCourse")) {
@@ -122,25 +114,16 @@ public class DBController implements Runnable {
 				}
 				
 				Transmission tx = new Transmission("Message", (Object)message);
-				try {
-					socketSend.writeObject((Object) tx);
-				} catch (IOException e) {
-					System.err.println("Error sending response (server-to-client)");
-					e.printStackTrace();
-				}
+
+				sendResponse(tx);
 			}
 			
 			else if (rx.getAction().equals("RefreshCatalogue")) {
 				System.out.println("Refreshing Course Catalogue");
 				
 				Transmission tx = new Transmission("RespondCatalogue", (Object)databaseManager.getCourseCatalogue().toString());
-				
-				try {
-					socketSend.writeObject((Object) tx);
-				} catch (IOException e) {
-					System.err.println("Error sending response (server-to-client)");
-					e.printStackTrace();
-				}
+
+				sendResponse(tx);
 			}
 			
 			else if (rx.getAction().equals("RefreshStudent")) {
@@ -151,18 +134,33 @@ public class DBController implements Runnable {
 				// WARNING: Sending the student does not get updated client-size, because of some weird Serialized duplication issue oof.
 				
 				Transmission tx = new Transmission("RespondStudent", (Object)student.getAllCourseRegistrations());
+
+				sendResponse(tx);
+			}
+			
+			else if (rx.getAction().equals("CheckStudentID")) {
+				System.out.println("Checking Student ID");
+				int studentID = (Integer)rx.getContents();
+				Student student = databaseManager.getStudentByID(studentID);
 				
-				try {
-					socketSend.writeObject((Object) tx);
-				} catch (IOException e) {
-					System.err.println("Error sending response (server-to-client)");
-					e.printStackTrace();
-				}
+				boolean result = student != null; // true if valid student, false if invalid student id
+				Transmission tx = new Transmission("StudentIDExists", (Object)result);
+				
+				sendResponse(tx);
 			}
 			
 			else {
 				System.err.println("Unknown Transmission Action: " + rx.getAction());
 			}
+		}
+	}
+	
+	public void sendResponse(Transmission tx) {
+		try {
+			socketSend.writeObject((Object) tx);
+		} catch (IOException e) {
+			System.err.println("Error sending response (server-to-client)");
+			e.printStackTrace();
 		}
 	}
 	

@@ -48,13 +48,12 @@ public class ClientController {
 		theView.addRemoveCoursePanelButtonListener(new RemoveCoursePanelListener());
 		theView.addSearchCatPanelButtonListener(new SearchCatPanelListener());
 
-		// Prompt the User for Student ID
-		studentID = Integer.parseInt(theView.inputDialogBoxStudentID());
+		// Repeatedly Prompt for Student ID until valid
+		studentID = promptForStudentID();
 		
 		// Refresh the Screen
 		refreshAction();
 	}
-	
 
 	class SearchCatButtonListener implements ActionListener
 	{
@@ -203,6 +202,33 @@ public class ClientController {
 		String studentCoursesStr = (String)rx.getContents();
 		theView.printToStudentCoursesTextArea(studentCoursesStr); // Display the StudentList to the User	
 		
+	}
+
+	/**
+	 * Prompts the user for their student ID, until they enter a valid one.
+	 * @return
+	 */
+	private int promptForStudentID() {
+		int studentID = -1;
+		
+		while (studentID < 0) {
+			try {
+				studentID = Integer.parseInt(theView.inputDialogBoxStudentID());
+			}
+			catch (NumberFormatException e) {
+				studentID = -1;
+				theView.displayMessageBox("Invalid Student ID Number entered. Enter a number, like '1'.");
+				continue;
+			}
+			
+			Transmission rx = clientComm.sendTransmission(new Transmission("CheckStudentID", (Object)studentID), true);
+			if ((Boolean)rx.getContents() == false) {
+				theView.displayMessageBox("Invalid Student ID Number entered. Enter a number, like '1'.");
+				studentID = -1;
+			}
+		}
+		
+		return studentID;
 	}
 	
 }
