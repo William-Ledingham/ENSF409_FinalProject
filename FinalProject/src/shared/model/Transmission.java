@@ -19,6 +19,9 @@ public class Transmission implements Serializable {
 
 	/**
 	 * The action the transmission is requesting. Supported actions include:
+	 * - CheckStudentID: contents = (Integer)studentID
+	 * - StudentIDExists: contents = (Boolean)StudentIDExists
+	 * 
 	 * - AddStudent
 	 * - AddCourse: contents = (Integer)studentID, options specified in options docstring
 	 * - RemoveCourse: same as AddCourse

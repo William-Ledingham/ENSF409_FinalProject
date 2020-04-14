@@ -117,7 +117,7 @@ public class DBController implements Runnable {
 						message = "Course Not Found, please search again.";
 					}
 					else {
-						message = courseFound.toString();
+						message = "Search Results:\n\n" + courseFound.toString();
 					}
 				}
 				

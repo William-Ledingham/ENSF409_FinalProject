@@ -23,6 +23,11 @@ import javax.swing.JTextField;
 public class RemoveCoursePanel extends JFrame{
 
 	/**
+	 * Serial ID for Serialization, never used here.
+	 */
+	private static final long serialVersionUID = 6232787639472638761L;
+
+	/**
 	 * Title at top of the panel.
 	 */
 	private JLabel title = new JLabel("Remove Course");

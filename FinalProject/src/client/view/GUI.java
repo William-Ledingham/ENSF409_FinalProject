@@ -3,7 +3,6 @@ package client.view;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
@@ -18,6 +17,10 @@ import javax.swing.*;
  */
 public class GUI extends JFrame {
 
+	/**
+	 * Serial ID for Serialization, never used here.
+	 */
+	private static final long serialVersionUID = -8945395696233806297L;
 	/**
 	 * Title at top of the panel.
 	 */

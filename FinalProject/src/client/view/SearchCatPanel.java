@@ -21,9 +21,14 @@ import javax.swing.JTextField;
  * @since 2020-04-10
  *
  */
-public class SearchCatPanel extends JFrame{
+public class SearchCatPanel extends JFrame {
 
 	
+	/**
+	 * Serial ID for Serialization, never used here.
+	 */
+	private static final long serialVersionUID = 722563940237963896L;
+
 	/**
 	 * Title at top of the panel.
 	 */

@@ -1,7 +1,7 @@
 package client.controller;
 
 import client.view.*;
-import shared.model.*;
+import shared.model.Transmission;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

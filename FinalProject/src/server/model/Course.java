@@ -1,4 +1,4 @@
-package shared.model;
+package server.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -76,6 +76,14 @@ public class Course implements Serializable {
 			}
 		}
 		return null;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public ArrayList<Course> getPreq() {
+		return preReq;
 	}
 
 }

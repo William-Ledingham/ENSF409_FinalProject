@@ -6,8 +6,6 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import server.model.*;
-
 /**
  * This is the main entry point for the entire server, and runs the server.
  * The server runs on port 9090.

@@ -19,6 +19,11 @@ import javax.swing.*;
 public class AddCoursePanel extends JFrame{
 
 	/**
+	 * Serial ID for Serialization, never used here.
+	 */
+	private static final long serialVersionUID = 5282372481714419158L;
+
+	/**
 	 * Title at top of the panel.
 	 */
 	private JLabel title = new JLabel("Add New Course");

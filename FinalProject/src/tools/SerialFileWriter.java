@@ -1,18 +1,18 @@
-package server.model;
+package tools;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import shared.model.*;
+import server.model.*;
 
 public class SerialFileWriter {
 	ObjectOutputStream objectOut = null;
 	CourseCatalogue courseCatalogue = null;
 	Scanner stdin = null;
 	Scanner textFileIn = null;
-	private ObjectInputStream input;
+	//private ObjectInputStream input;
 	ArrayList<Student> sList;
 	
 	public void writeStudentListSer() {		
