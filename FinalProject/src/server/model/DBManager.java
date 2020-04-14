@@ -9,8 +9,11 @@ import java.util.Scanner;
 
 import shared.model.*;
 
-//This class is simulating a database for our
-//program
+/**
+ * Manages the database of everything, on the server side.
+ * @author Parker
+ *
+ */
 public class DBManager {
 	
 	private ArrayList <Course> courseList;
@@ -92,26 +95,27 @@ public class DBManager {
 		
 	}
 	
-	
-	
-	
-	public Student UserSearchCourseList()
+	/**
+	 * Searches the students list for a single student, but their ID.
+	 * @param studentID ID of Student
+	 * @return The student, or null if not found
+	 */
+	public Student getStudentByID(int studentID)
 	{
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter student ID: ");
-		int input = Integer.parseInt(sc.nextLine());
 		for(Student student : studentList)
 		{
-			if(input == student.getStudentId())
+			if(studentID == student.getStudentId())
 			{
-				sc.close();
 				return student;
 			}
 		}
-		sc.close();
 		return null;
 	}
 	
+	/**
+	 * Gets the course catalogue
+	 * @return the CourseCatalogue
+	 */
 	public CourseCatalogue getCourseCatalogue()
 	{
 		return cat;

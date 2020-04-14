@@ -22,8 +22,12 @@ public class Transmission implements Serializable {
 	 * - AddStudent
 	 * - AddClass
 	 * - GetClasses
+	 * 
 	 * - RefreshCatalogue
 	 * - RespondCatalogue
+	 * - RefreshStudent: contents = (Integer)studentID
+	 * - RespondStudent: contents = Student
+	 * 
 	 * - Success (return that it was successful)
 	 */
 	private String action;

@@ -58,6 +58,19 @@ public class DBController implements Runnable {
 					e.printStackTrace();
 				}
 			}
+			
+			if (rx.getAction().equals("RefreshStudent")) {
+				System.out.println("Refreshing Student");
+				
+				Transmission tx = new Transmission("RespondStudent", (Object)databaseManager.getStudentByID((Integer)rx.getContents()));
+				
+				try {
+					socketSend.writeObject((Object) tx);
+				} catch (IOException e) {
+					System.err.println("Error sending response (server-to-client)");
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 	

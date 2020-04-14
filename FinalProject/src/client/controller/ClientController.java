@@ -27,8 +27,13 @@ public class ClientController {
 	 * Connection from client to server. Made in constructor (composition relationship).
 	 */
 	private ClientCommunicator clientComm;
-
 	
+	private int studentID;
+	
+	/**
+	 * 
+	 * @param theView
+	 */
 	public ClientController(GUI theView)
 	{
 		this.theView = theView;
@@ -43,6 +48,13 @@ public class ClientController {
 		theView.addRemoveCoursePanelButtonListener(new RemoveCoursePanelListener());
 		theView.addRemoveCoursePanelButtonListener(new RemoveCoursePanelListener());
 		theView.addSearchCatPanelButtonListener(new SearchCatPanelListener());
+
+		// Prompt the User for Student ID
+		studentID = Integer.parseInt(theView.inputDialogBoxStudentID());
+		//System.out.println("Working for StudentID=" + studentID); // DEBUG
+		
+		// Refresh the Screen
+		refreshAction();
 	}
 	
 
@@ -62,15 +74,9 @@ public class ClientController {
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
-			System.out.println("Refreshing...");
-			
-			Transmission rx = clientComm.sendTransmission(new Transmission("RefreshCatalogue"), true);
-			
-			CourseCatalogue rxCat = (CourseCatalogue)rx.getContents();
-			
-			// Display the Catalogue to the User (in the future, possibly consider some sort of table instead)
-			theView.printToCourseCatTextArea(rxCat.toString());
+			refreshAction();
 		}
+
 	}
 
 	class AddCourseButtonListener implements ActionListener
@@ -150,6 +156,34 @@ public class ClientController {
 		BSTModel model = new BSTModel();
 		Controller controller = new Controller(myApp, model);
 		*/
+	}
+
+	/**
+	 * Refreshes the two text panes in the GUI window, by calling the server with the associated information.
+	 * This method could be broken into two seperate methods: refreshCourseCatalogue and refreshStudentRegList.
+	 */
+	public void refreshAction() {
+
+		System.out.println("Refreshing...");
+		Transmission rx;
+		
+		// Refresh the Catalogue
+		rx = clientComm.sendTransmission(new Transmission("RefreshCatalogue"), true);
+		CourseCatalogue rxCat = (CourseCatalogue)rx.getContents();
+		theView.printToCourseCatTextArea(rxCat.toString()); // Display the Catalogue to the User 
+															// (in the future, possibly consider some sort of table instead)
+		
+		// Refresh the Student Registration List
+		rx = clientComm.sendTransmission(new Transmission("RefreshStudent", (Object)studentID), true);
+		Student student = (Student)rx.getContents();
+		String studentListStr = student.getStudentRegList().size() + " Course Registrations for Student: '" + studentID + "' (" + student.getStudentName() + ")\n";
+		for (Registration reg : student.getStudentRegList()) {
+			//studentListStr += reg.getTheOffering().getTheCourse().toString(); // EXTRA
+			studentListStr += reg.getTheOffering().toString();
+			studentListStr += "\n"; // RIP CPSC
+		}
+		theView.printToStudentCoursesTextArea(studentListStr); // Display the StudentList to the User
+		
 	}
 	
 }

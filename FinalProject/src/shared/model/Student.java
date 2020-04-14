@@ -17,6 +17,14 @@ public class Student implements Serializable {
 	//private ArrayList<CourseOffering> offeringList;
 	private ArrayList<Registration> studentRegList;
 		
+	/**
+	 * Gets the registration list
+	 * @return the studentRegList
+	 */
+	public ArrayList<Registration> getStudentRegList() {
+		return studentRegList;
+	}
+
 	public Student (String studentName, int studentId) {
 		this.setStudentName(studentName);
 		this.setStudentId(studentId);
