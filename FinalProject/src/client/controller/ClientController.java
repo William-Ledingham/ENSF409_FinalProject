@@ -243,94 +243,57 @@ public class ClientController {
 	class MyWindowListener implements WindowListener{
 
 		@Override
-		public void windowOpened(WindowEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+		public void windowOpened(WindowEvent e) { }
 
 		@Override
 		public void windowClosing(WindowEvent e) {
-			// TODO Auto-generated method stub
 			System.out.println("Closing Window");
+			clientComm.close();
 			theView.dispose();
 		}
 
 		@Override
-		public void windowClosed(WindowEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+		public void windowClosed(WindowEvent e) { }
 
 		@Override
-		public void windowIconified(WindowEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+		public void windowIconified(WindowEvent e) { }
 
 		@Override
-		public void windowDeiconified(WindowEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+		public void windowDeiconified(WindowEvent e) { }
 
 		@Override
-		public void windowActivated(WindowEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+		public void windowActivated(WindowEvent e) { }
 
 		@Override
-		public void windowDeactivated(WindowEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+		public void windowDeactivated(WindowEvent e) { }
 		
 	}
 	
 	class MyAddWindowListener implements WindowListener{
 
 		@Override
-		public void windowOpened(WindowEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+		public void windowOpened(WindowEvent e) { }
 
 		@Override
 		public void windowClosing(WindowEvent e) {
-			// TODO Auto-generated method stub
 			System.out.println("Closing Window");
 			theView.getAddCoursePanel().dispose();
 		}
 
 		@Override
-		public void windowClosed(WindowEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+		public void windowClosed(WindowEvent e) { }
 
 		@Override
-		public void windowIconified(WindowEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+		public void windowIconified(WindowEvent e) { }
 
 		@Override
-		public void windowDeiconified(WindowEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+		public void windowDeiconified(WindowEvent e) { }
 
 		@Override
-		public void windowActivated(WindowEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+		public void windowActivated(WindowEvent e) { }
 
 		@Override
-		public void windowDeactivated(WindowEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+		public void windowDeactivated(WindowEvent e) { }
 		
 	}
 	
