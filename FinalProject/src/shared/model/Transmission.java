@@ -28,6 +28,8 @@ public class Transmission implements Serializable {
 	 * - RefreshStudent: contents = (Integer)studentID
 	 * - RespondStudent: contents = String
 	 * 
+	 * - SearchCourse: options specified in options docstring
+	 * 
 	 * - Success (return that it was successful) -> Unused Right Now
 	 * - Message: contents = (String)Success/Failure Message
 	 */
@@ -40,7 +42,8 @@ public class Transmission implements Serializable {
 	
 	/**
 	 * Options for the action, as any types of Strings.
-	 * - For AddClass action: [faculty, courseNumber, lect number]
+	 * - For AddCourse/RemoveCourse action: [faculty, courseNumber, lect number]
+	 * - For SearchCourse action: [faculty, courseNumber]
 	 */
 	private ArrayList<String> options;
 
@@ -92,9 +95,5 @@ public class Transmission implements Serializable {
 	public ArrayList<String> getOptions() {
 		return options;
 	}
-	
-	
-	
-	
 
 }

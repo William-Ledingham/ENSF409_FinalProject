@@ -58,7 +58,6 @@ public class DBController implements Runnable {
 					// Add the Course
 					Student student = databaseManager.getStudentByID(studentID);
 					message = student.registerStudentInCourse(databaseManager.getCourseCatalogue(), courseName, courseNum, courseSec);
-					//String message = student.registerStudentInCourse(databaseManager.getCourseCatalogue(), "ENSF", 409, 1);
 				}
 				
 				Transmission tx = new Transmission("Message", (Object)message);
@@ -89,7 +88,37 @@ public class DBController implements Runnable {
 					// Add the Course
 					Student student = databaseManager.getStudentByID(studentID);
 					message = student.deleteStudentFromCourse(databaseManager.getCourseCatalogue(), courseName, courseNum, courseSec);
-					//String message = student.registerStudentInCourse(databaseManager.getCourseCatalogue(), "ENSF", 409, 1);
+				}
+				
+				Transmission tx = new Transmission("Message", (Object)message);
+				try {
+					socketSend.writeObject((Object) tx);
+				} catch (IOException e) {
+					System.err.println("Error sending response (server-to-client)");
+					e.printStackTrace();
+				}
+			}
+
+			else if (rx.getAction().equals("SearchCourse")) {
+				System.out.println("Searching for a course...");
+				String message = "";
+				
+				String courseName = rx.getOptions().get(0);
+				int courseNum = 0;
+				try {
+					courseNum = Integer.parseInt(rx.getOptions().get(1));
+				}
+				catch (NumberFormatException e) {
+					message = "Invalid Course Number. Please provide numbers.";
+				}
+				if (message.equals("")) {
+					Course courseFound = databaseManager.getCourseCatalogue().searchCat(courseName, courseNum);
+					if (courseFound == null) {
+						message = "Course Not Found, please search again.";
+					}
+					else {
+						message = courseFound.toString();
+					}
 				}
 				
 				Transmission tx = new Transmission("Message", (Object)message);

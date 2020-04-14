@@ -114,12 +114,15 @@ public class SearchCatPanel extends JFrame{
 	 * Gets the course id entered in the course id TextField.
 	 * @return Integer of the course id entered in the TextField.
 	 */
-	public int getCourseId()
+	public String getCourseId()
 	{
-		return Integer.parseInt(courseIdTextField.getText());
+		return courseIdTextField.getText();
 	}
 
-
+	public void clearFields() {
+		facultyTextField.setText("");
+		courseIdTextField.setText("");
+	}
 	
 	
 }

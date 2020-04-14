@@ -152,8 +152,20 @@ public class ClientController {
 		public void actionPerformed(ActionEvent e)
 		{
 
+			System.out.println("Searching for a course...");
+			SearchCatPanel panel = theView.getSearchCatPanel();
+			Transmission transmission = new Transmission("SearchCourse",
+					new ArrayList<String>(Arrays.asList(panel.getFaculty(), panel.getCourseId())));
+			
+			String resultMessage = (String)clientComm.sendTransmission(transmission, true).getContents();
+			
 			//Close the window when the add course button is hit
-			theView.getSearchCatPanel().dispose();
+			panel.clearFields();
+			panel.dispose();
+			
+			theView.displayMessageBox(resultMessage);
+			
+			refreshAction();
 		}
 	}
 
