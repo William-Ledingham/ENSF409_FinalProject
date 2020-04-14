@@ -49,8 +49,9 @@ public class ClientCommunicator {
 	 * Sends a transmission to the server.
 	 * 
 	 * @param tx the transmission to send
+	 * @param waitForResponse
 	 */
-	public Transmission sendTransmission(Transmission tx) {
+	public Transmission sendTransmission(Transmission tx, boolean waitForResponse) {
 		Transmission rx = null;
 		
 		// Send the transmission
@@ -61,15 +62,19 @@ public class ClientCommunicator {
 			e.printStackTrace();
 		}
 		
-		// Read the transmission
-		try {
-			rx = (Transmission) socketReceive.readObject();
-		} catch (IOException | ClassNotFoundException e) {
-			System.err.println("Error receiving transmission from server.");
-			e.printStackTrace();
+		if (waitForResponse) {
+			// Read the transmission
+			try {
+				rx = (Transmission) socketReceive.readObject();
+			} catch (IOException | ClassNotFoundException e) {
+				System.err.println("Error receiving transmission from server.");
+				e.printStackTrace();
+			}
+			return rx;
 		}
 		
-		return rx;
+		return null;
+		
 	}
 	
 	/**

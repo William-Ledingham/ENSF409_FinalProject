@@ -45,6 +45,19 @@ public class DBController implements Runnable {
 				databaseManager.addCourseOffering(rx.getOptions().get(0), 
 						Integer.parseInt(rx.getOptions().get(1)), Integer.parseInt(rx.getOptions().get(2)));
 			}
+			
+			if (rx.getAction().equals("RefreshCatalogue")) {
+				System.out.println("Refreshing Course Catalogue");
+				
+				Transmission tx = new Transmission("RespondCatalogue", (Object)databaseManager.getCourseCatalogue());
+				
+				try {
+					socketSend.writeObject((Object) tx);
+				} catch (IOException e) {
+					System.err.println("Error sending response (server-to-client)");
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 	

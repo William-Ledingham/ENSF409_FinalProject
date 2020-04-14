@@ -62,7 +62,11 @@ public class ClientController {
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
-
+			System.out.println("Refreshing...");
+			
+			Transmission rx = clientComm.sendTransmission(new Transmission("RefreshCatalogue"), true);
+			
+			System.out.println("Received Catalogue: " + (CourseCatalogue)rx.getContents());
 		}
 	}
 
@@ -102,7 +106,7 @@ public class ClientController {
 					new ArrayList<String>(Arrays.asList(panel.getFaculty(), panel.getCourseId(), panel.getSection())));
 			
 					//new Course(theView.getAddCoursePanel().getFaculty(), theView.getAddCoursePanel().getCourseId()));
-			clientComm.sendTransmission(transmission);
+			clientComm.sendTransmission(transmission, false);
 			
 			//Close the window when the add course button is hit
 			theView.getAddCoursePanel().dispose();

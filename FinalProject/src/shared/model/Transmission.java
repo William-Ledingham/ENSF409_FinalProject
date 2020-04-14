@@ -22,6 +22,8 @@ public class Transmission implements Serializable {
 	 * - AddStudent
 	 * - AddClass
 	 * - GetClasses
+	 * - RefreshCatalogue
+	 * - RespondCatalogue
 	 * - Success (return that it was successful)
 	 */
 	private String action;
@@ -44,10 +46,22 @@ public class Transmission implements Serializable {
 		this.options = options;
 	}
 	
+	public Transmission(String action) {
+		this.action = action;
+		this.contents = null;
+		this.options = null;
+	}
+	
 	public Transmission(String action, ArrayList<String> options) {
 		this.action = action;
 		this.contents = null;
 		this.options = options;
+	}
+	
+	public Transmission(String action, Object contents) {
+		this.action = action;
+		this.contents = contents;
+		this.options = null;
 	}
 	
 	/**

@@ -1,5 +1,6 @@
 package server.model;
 
+import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -29,7 +30,7 @@ public class DBManager {
 	public CourseCatalogue readCoursesFromDatabase() {
 		ObjectInputStream input = null;
 		String fileName = "courseCatalogue.ser";
-		CourseCatalogue courseCat =null;		        
+		CourseCatalogue courseCat = null;		        
 		try
 		{
 			input = new ObjectInputStream(new FileInputStream( fileName ) );
@@ -43,11 +44,15 @@ public class DBManager {
 			while ( true )
 		    {
 				courseCat = (CourseCatalogue)input.readObject();
-		       // System.out.println(courseCat.toString());
-		     }   
-		 }catch(Exception e) {
-			 System.out.println("done reading file");
+				System.out.println(courseCat.toString()); // DEBUG 
+		     }
+		 }catch(EOFException e) {
+			 System.out.println("Done reading file (course catalogue)");
 		 }
+		catch (Exception e) {
+			System.err.println("Other Error");
+			e.printStackTrace();
+		}
 		return courseCat;
 		
 	}
@@ -64,11 +69,13 @@ public class DBManager {
 		try
 		{
 			input = new ObjectInputStream(new FileInputStream( fileName ) );
-		}
-		catch ( IOException ioException )
-		{
-			System.err.println( "Error opening file." );
-		}		        
+		 }catch(EOFException e) {
+			 System.out.println("Done reading file (student list)");
+		 }
+		catch (Exception e) {
+			System.err.println("Other Error");
+			e.printStackTrace();
+		}	        
 		try
 		{
 			while ( true )
@@ -79,7 +86,7 @@ public class DBManager {
 		        studentList.add(s);
 		     }   
 		 }catch(Exception e) {
-			 System.out.println("done reading file");
+			 System.out.println("Done reading file (student list)");
 		 }
 		return studentList;
 		
