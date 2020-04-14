@@ -87,7 +87,6 @@ public class GUI extends JFrame {
 		
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		setSize(900, 700);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel northPanel = new JPanel(new GridLayout(2, 0));
 		

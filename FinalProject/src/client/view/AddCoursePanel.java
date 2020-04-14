@@ -70,7 +70,6 @@ public class AddCoursePanel extends JFrame{
 
 		JPanel insertPanel = new JPanel(new BorderLayout());
 		setSize(400, 175);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel northPanel = new JPanel(new FlowLayout());
 		JPanel centerPanel = new JPanel(new FlowLayout());
