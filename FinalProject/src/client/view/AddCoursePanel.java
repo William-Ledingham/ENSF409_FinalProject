@@ -131,5 +131,11 @@ public class AddCoursePanel extends JFrame{
 		//return Integer.parseInt(sectionTextField.getText());
 		return sectionTextField.getText();
 	}
+	
+	public void clearFields() {
+		facultyTextField.setText("");
+		courseIdTextField.setText("");
+		sectionTextField.setText("");
+	}
 
 }

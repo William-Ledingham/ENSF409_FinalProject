@@ -269,6 +269,16 @@ public class GUI extends JFrame {
 	{
 		return searchCatPanel;
 	}
+
+	/**
+	 * Displays a message box to the user to tell them how an action was completed.
+	 * Add fancy stuff later, if we want.
+	 * @param resultMessage The message to display to the user
+	 */
+	public void displayMessageBox(String message) {
+		JOptionPane.showMessageDialog(this, message);
+		
+	}
 	
 	
 

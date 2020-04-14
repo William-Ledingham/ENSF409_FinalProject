@@ -34,8 +34,6 @@ public class ServerCommController {
 	private ExecutorService pool;
 	private DBController databaseController;
 	
-	
-	
 	public ServerCommController(int port)
 	{
 		try

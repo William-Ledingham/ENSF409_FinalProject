@@ -13,15 +13,15 @@ public class Registration implements Serializable {
 	private CourseOffering theOffering;
 	private char grade;
 	
-	void completeRegistration (Student st, CourseOffering of) {
-		theStudent = st;
-		theOffering = of;
-		addRegistration ();
+	public Registration (Student student, CourseOffering offering) {
+		theStudent = student;
+		theOffering = offering;
 	}
-	
 
-	
-	private void addRegistration () {
+	/**
+	 * Adds this registration to the student and to the offering (all places that store the registration).
+	 */
+	public void addRegistration () {
 		theStudent.addRegistration(this);
 		theOffering.addRegistration(this);
 	}

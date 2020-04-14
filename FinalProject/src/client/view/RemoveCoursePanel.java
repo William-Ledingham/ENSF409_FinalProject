@@ -121,17 +121,23 @@ public class RemoveCoursePanel extends JFrame{
 	 * Gets the course id entered in the course id TextField.
 	 * @return Integer of course id.
 	 */
-	public int getCourseId()
+	public String getCourseId()
 	{
-		return Integer.parseInt(courseIdTextField.getText());
+		return courseIdTextField.getText();
 	}
 	/**
 	 * Gets the section number entered in the section number TextField.
 	 * @return
 	 */
-	public int getSection()
+	public String getSection()
 	{
-		return Integer.parseInt(sectionTextField.getText());
+		return sectionTextField.getText();
+	}
+	
+	public void clearFields() {
+		facultyTextField.setText("");
+		courseIdTextField.setText("");
+		sectionTextField.setText("");
 	}
 	
 }

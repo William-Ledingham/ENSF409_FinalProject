@@ -62,12 +62,20 @@ public class Course implements Serializable {
 		return st;
 	}
 
-	public CourseOffering getCourseOfferingAt(int i) {
-		// TODO Auto-generated method stub
-		if (i < 0 || i >= offeringList.size() )
-			return null;
-		else
-			return offeringList.get(i);
+	/**
+	 * Gets the CourseOffering based off of its number.
+	 * This is changed, where the original version got it by an index instead of by the section number.
+	 * 
+	 * @param courseSec The section of the course
+	 * @return The CourseOffering of the given section number
+	 */
+	public CourseOffering getCourseOfferingAt(int courseSec) {
+		for (CourseOffering offering : offeringList) {
+			if (offering.getSecNum() == courseSec) {
+				return offering;
+			}
+		}
+		return null;
 	}
 
 }

@@ -35,8 +35,10 @@ public class SerialFileWriter {
 	
 	public static void main(String [] args) {
 		SerialFileWriter serialFileWriter = new SerialFileWriter();
-		serialFileWriter.writeStudentListSer();
 		serialFileWriter.writeCourseCatalogueSer();
+		serialFileWriter.writeStudentListSer();
+		
+		System.out.println("All done writing both files.");
 	}
 	
 	public void writeCourseCatalogueSer() {
@@ -83,9 +85,14 @@ public class SerialFileWriter {
 	
 	public void createStudentList() {
 		//sList = new StudentList();
-		Student s1 = new Student ("michaela", 1);
+		Student s1 = new Student ("Michaela", 1);
 		Student s2 = new Student ("Wil", 2);
 		Student s3 = new Student ("Parker", 3);
+
+		// Register the student in a course
+		s1.registerStudentInCourse(courseCatalogue, "ENSF", 409, 1);
+		
+		// Add all the students to the list
 		sList = new ArrayList<Student>();
 		sList.add(s1);
 		sList.add(s2);

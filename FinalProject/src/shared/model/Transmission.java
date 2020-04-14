@@ -20,15 +20,16 @@ public class Transmission implements Serializable {
 	/**
 	 * The action the transmission is requesting. Supported actions include:
 	 * - AddStudent
-	 * - AddClass
-	 * - GetClasses
+	 * - AddCourse: contents = (Integer)studentID, options specified in options docstring
+	 * - RemoveCourse: same as AddCourse
 	 * 
 	 * - RefreshCatalogue
 	 * - RespondCatalogue
 	 * - RefreshStudent: contents = (Integer)studentID
 	 * - RespondStudent: contents = Student
 	 * 
-	 * - Success (return that it was successful)
+	 * - Success (return that it was successful) -> Unused Right Now
+	 * - Message: contents = (String)Success/Failure Message
 	 */
 	private String action;
 	

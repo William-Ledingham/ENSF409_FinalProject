@@ -40,10 +40,47 @@ public class DBController implements Runnable {
 			}
 			
 			if (rx.getAction().equals("AddCourse")) {
-				System.out.println("Options Length: " + rx.getOptions().size() + ": " + rx.getOptions().get(0) + "|" + rx.getOptions().get(1));
+				System.out.println("Adding new course to student...");
 				
-				databaseManager.addCourseOffering(rx.getOptions().get(0), 
-						Integer.parseInt(rx.getOptions().get(1)), Integer.parseInt(rx.getOptions().get(2)));
+				String courseName = rx.getOptions().get(0);
+				int courseNum = Integer.parseInt(rx.getOptions().get(1));
+				int courseSec = Integer.parseInt(rx.getOptions().get(2));
+				int studentID = (Integer)rx.getContents();
+				
+				// Add the Course
+				Student student = databaseManager.getStudentByID(studentID);
+				String message = student.registerStudentInCourse(databaseManager.getCourseCatalogue(), courseName, courseNum, courseSec);
+				//String message = student.registerStudentInCourse(databaseManager.getCourseCatalogue(), "ENSF", 409, 1);
+				
+				Transmission tx = new Transmission("Message", (Object)message);
+				try {
+					socketSend.writeObject((Object) tx);
+				} catch (IOException e) {
+					System.err.println("Error sending response (server-to-client)");
+					e.printStackTrace();
+				}
+			}
+			
+			if (rx.getAction().equals("DeleteCourse")) {
+				System.out.println("Delete course from student...");
+				
+				String courseName = rx.getOptions().get(0);
+				int courseNum = Integer.parseInt(rx.getOptions().get(1));
+				int courseSec = Integer.parseInt(rx.getOptions().get(2));
+				int studentID = (Integer)rx.getContents();
+				
+				// Add the Course
+				Student student = databaseManager.getStudentByID(studentID);
+				String message = student.deleteStudentFromCourse(databaseManager.getCourseCatalogue(), courseName, courseNum, courseSec);
+				//String message = student.registerStudentInCourse(databaseManager.getCourseCatalogue(), "ENSF", 409, 1);
+				
+				Transmission tx = new Transmission("Message", (Object)message);
+				try {
+					socketSend.writeObject((Object) tx);
+				} catch (IOException e) {
+					System.err.println("Error sending response (server-to-client)");
+					e.printStackTrace();
+				}
 			}
 			
 			if (rx.getAction().equals("RefreshCatalogue")) {
@@ -62,7 +99,11 @@ public class DBController implements Runnable {
 			if (rx.getAction().equals("RefreshStudent")) {
 				System.out.println("Refreshing Student");
 				
-				Transmission tx = new Transmission("RespondStudent", (Object)databaseManager.getStudentByID((Integer)rx.getContents()));
+				int studentID = (Integer)rx.getContents();
+				Student student = databaseManager.getStudentByID(studentID);
+				// WARNING: Sending the student does not get updated client-size, because of some weird Serialized duplication issue oof.
+				
+				Transmission tx = new Transmission("RespondStudent", (Object)student.getAllCourseRegistrations());
 				
 				try {
 					socketSend.writeObject((Object) tx);

@@ -109,16 +109,20 @@ public class ClientController {
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
-			System.out.println("Adding a new course!");
+			System.out.println("Adding a new course...");
 			AddCoursePanel panel = theView.getAddCoursePanel();
-			Transmission transmission = new Transmission("AddCourse", 
+			Transmission transmission = new Transmission("AddCourse", (Object)studentID,
 					new ArrayList<String>(Arrays.asList(panel.getFaculty(), panel.getCourseId(), panel.getSection())));
 			
-					//new Course(theView.getAddCoursePanel().getFaculty(), theView.getAddCoursePanel().getCourseId()));
-			clientComm.sendTransmission(transmission, false);
+			String resultMessage = (String)clientComm.sendTransmission(transmission, true).getContents();
 			
 			//Close the window when the add course button is hit
-			theView.getAddCoursePanel().dispose();
+			panel.clearFields();
+			panel.dispose();
+			
+			theView.displayMessageBox(resultMessage);
+			
+			refreshAction();
 		}
 	}
 	
@@ -127,9 +131,20 @@ public class ClientController {
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
-
+			System.out.println("Removing a course...");
+			RemoveCoursePanel panel = theView.getRemoveCoursePanel();
+			Transmission transmission = new Transmission("AddCourse", (Object)studentID,
+					new ArrayList<String>(Arrays.asList(panel.getFaculty(), panel.getCourseId(), panel.getSection())));
+			
+			String resultMessage = (String)clientComm.sendTransmission(transmission, true).getContents();
+			
 			//Close the window when the add course button is hit
-			theView.getRemoveCoursePanel().dispose();
+			panel.clearFields();
+			panel.dispose();
+			
+			theView.displayMessageBox(resultMessage);
+			
+			refreshAction();
 		}
 	}
 	
@@ -160,7 +175,7 @@ public class ClientController {
 
 	/**
 	 * Refreshes the two text panes in the GUI window, by calling the server with the associated information.
-	 * This method could be broken into two seperate methods: refreshCourseCatalogue and refreshStudentRegList.
+	 * This method could be broken into two separate methods: refreshCourseCatalogue and refreshStudentRegList.
 	 */
 	public void refreshAction() {
 
@@ -175,14 +190,9 @@ public class ClientController {
 		
 		// Refresh the Student Registration List
 		rx = clientComm.sendTransmission(new Transmission("RefreshStudent", (Object)studentID), true);
-		Student student = (Student)rx.getContents();
-		String studentListStr = student.getStudentRegList().size() + " Course Registrations for Student: '" + studentID + "' (" + student.getStudentName() + ")\n";
-		for (Registration reg : student.getStudentRegList()) {
-			//studentListStr += reg.getTheOffering().getTheCourse().toString(); // EXTRA
-			studentListStr += reg.getTheOffering().toString();
-			studentListStr += "\n"; // RIP CPSC
-		}
-		theView.printToStudentCoursesTextArea(studentListStr); // Display the StudentList to the User
+		String studentCoursesStr = (String)rx.getContents();
+
+		theView.printToStudentCoursesTextArea(studentCoursesStr); // Display the StudentList to the User	
 		
 	}
 	
