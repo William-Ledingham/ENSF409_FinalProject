@@ -182,14 +182,13 @@ public class ClientController {
 		
 		// Refresh the Catalogue
 		rx = clientComm.sendTransmission(new Transmission("RefreshCatalogue"), true);
-		CourseCatalogue rxCat = (CourseCatalogue)rx.getContents();
-		theView.printToCourseCatTextArea(rxCat.toString()); // Display the Catalogue to the User 
-															// (in the future, possibly consider some sort of table instead)
+		String catalogueStr = (String)rx.getContents();
+		theView.printToCourseCatTextArea(catalogueStr); // Display the Catalogue to the User 
+														// (in the future, possibly consider some sort of table instead)
 		
 		// Refresh the Student Registration List
 		rx = clientComm.sendTransmission(new Transmission("RefreshStudent", (Object)studentID), true);
 		String studentCoursesStr = (String)rx.getContents();
-
 		theView.printToStudentCoursesTextArea(studentCoursesStr); // Display the StudentList to the User	
 		
 	}

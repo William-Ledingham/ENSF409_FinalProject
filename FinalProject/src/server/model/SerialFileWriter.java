@@ -89,8 +89,8 @@ public class SerialFileWriter {
 		Student s2 = new Student ("Wil", 2);
 		Student s3 = new Student ("Parker", 3);
 
-		// Register the student in a course
-		s1.registerStudentInCourse(courseCatalogue, "ENSF", 409, 1);
+		// Register the student in a course (doesn't create all proper linkages, therefore not removable)
+		//s1.registerStudentInCourse(courseCatalogue, "ENSF", 409, 1);
 		
 		// Add all the students to the list
 		sList = new ArrayList<Student>();

@@ -104,7 +104,7 @@ public class DBController implements Runnable {
 			else if (rx.getAction().equals("RefreshCatalogue")) {
 				System.out.println("Refreshing Course Catalogue");
 				
-				Transmission tx = new Transmission("RespondCatalogue", (Object)databaseManager.getCourseCatalogue());
+				Transmission tx = new Transmission("RespondCatalogue", (Object)databaseManager.getCourseCatalogue().toString());
 				
 				try {
 					socketSend.writeObject((Object) tx);

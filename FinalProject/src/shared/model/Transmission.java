@@ -23,10 +23,10 @@ public class Transmission implements Serializable {
 	 * - AddCourse: contents = (Integer)studentID, options specified in options docstring
 	 * - RemoveCourse: same as AddCourse
 	 * 
-	 * - RefreshCatalogue
-	 * - RespondCatalogue
+	 * - RefreshCatalogue: empty
+	 * - RespondCatalogue: contents = String
 	 * - RefreshStudent: contents = (Integer)studentID
-	 * - RespondStudent: contents = Student
+	 * - RespondStudent: contents = String
 	 * 
 	 * - Success (return that it was successful) -> Unused Right Now
 	 * - Message: contents = (String)Success/Failure Message
