@@ -50,7 +50,6 @@ public class ClientController {
 
 		// Prompt the User for Student ID
 		studentID = Integer.parseInt(theView.inputDialogBoxStudentID());
-		//System.out.println("Working for StudentID=" + studentID); // DEBUG
 		
 		// Refresh the Screen
 		refreshAction();

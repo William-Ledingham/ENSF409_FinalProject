@@ -55,7 +55,7 @@ public class Student implements Serializable {
 	 */
 	public String getAllCourseRegistrations()
 	{
-		String out = studentRegList.size() + " Registration(s) for " + studentName + " (ID = " + studentId + ")";
+		String out = studentRegList.size() + " Registration(s) for " + studentName + " (ID = " + studentId + ")\n\n";
 		
 		for(Registration reg : studentRegList)
 		{

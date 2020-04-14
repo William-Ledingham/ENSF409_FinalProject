@@ -83,7 +83,7 @@ public class GUI extends JFrame {
 		super("Student Records");
 		
 		JPanel mainPanel = new JPanel(new BorderLayout());
-		setSize(800, 500);
+		setSize(900, 700);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel northPanel = new JPanel(new GridLayout(2, 0));
