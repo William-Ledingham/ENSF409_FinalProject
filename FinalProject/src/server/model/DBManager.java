@@ -129,5 +129,7 @@ public class DBManager {
 		System.out.println("With new course added, we having the following courses: ");
 		System.out.println(cat);
 	}
+	
+	
 
 }
