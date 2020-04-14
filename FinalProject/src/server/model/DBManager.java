@@ -44,7 +44,7 @@ public class DBManager {
 			while ( true )
 		    {
 				courseCat = (CourseCatalogue)input.readObject();
-				System.out.println(courseCat.toString()); // DEBUG 
+				// System.out.println(courseCat.toString()); // DEBUG 
 		     }
 		 }catch(EOFException e) {
 			 System.out.println("Done reading file (course catalogue)");
@@ -82,7 +82,7 @@ public class DBManager {
 		    {
 				
 				s = (Student)input.readObject();
-		       // System.out.println(s.toString());
+		       // System.out.println(s.toString()); // DEBUG
 		        studentList.add(s);
 		     }   
 		 }catch(Exception e) {

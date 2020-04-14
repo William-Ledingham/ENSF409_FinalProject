@@ -66,7 +66,10 @@ public class ClientController {
 			
 			Transmission rx = clientComm.sendTransmission(new Transmission("RefreshCatalogue"), true);
 			
-			System.out.println("Received Catalogue: " + (CourseCatalogue)rx.getContents());
+			CourseCatalogue rxCat = (CourseCatalogue)rx.getContents();
+			
+			// Display the Catalogue to the User (in the future, possibly consider some sort of table instead)
+			theView.printToCourseCatTextArea(rxCat.toString());
 		}
 	}
 

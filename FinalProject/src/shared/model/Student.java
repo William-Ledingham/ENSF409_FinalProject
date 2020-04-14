@@ -16,7 +16,7 @@ public class Student implements Serializable {
 	private int studentId;
 	//private ArrayList<CourseOffering> offeringList;
 	private ArrayList<Registration> studentRegList;
-	
+		
 	public Student (String studentName, int studentId) {
 		this.setStudentName(studentName);
 		this.setStudentId(studentId);
@@ -24,7 +24,6 @@ public class Student implements Serializable {
 	}
 
 	public void addRegistration(Registration registration) {
-		// TODO Auto-generated method stub
 		studentRegList.add(registration);
 	}
 	public void deleteRegistration(Course course)
