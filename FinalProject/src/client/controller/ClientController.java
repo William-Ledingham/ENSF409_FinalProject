@@ -62,6 +62,13 @@ public class ClientController {
 		refreshAction();
 		
 	}
+	
+	/**
+	 * Closes all socket connections to server.
+	 */
+	public void close() {
+		clientComm.close();
+	}
 
 	class SearchCatButtonListener implements ActionListener
 	{
@@ -184,6 +191,7 @@ public class ClientController {
 		myApp.setVisible(true);
 		
 		ClientController con = new ClientController(myApp);
+		
 		/*
 		BSTModel model = new BSTModel();
 		Controller controller = new Controller(myApp, model);

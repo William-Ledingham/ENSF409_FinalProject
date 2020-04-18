@@ -34,7 +34,12 @@ public class DBController implements Runnable {
 			Transmission rx = null;
 			try {
 				rx = (Transmission) socketReceive.readObject();
-			} catch (ClassNotFoundException | IOException e) {
+			}
+			catch (EOFException e) {
+				System.out.println("Client Disconnected...");
+				break; // or "return;"
+			}
+			catch (ClassNotFoundException | IOException e) {
 				System.err.println("Error receiving from client.");
 				e.printStackTrace();
 			}
