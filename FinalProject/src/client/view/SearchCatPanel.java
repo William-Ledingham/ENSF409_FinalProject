@@ -11,29 +11,24 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-
 /**
  * Provides data members and methods to create a JFrame that is meant to be auxiliary to the main GUI frame.
  * Provides TextFields to enter information to search the course catalogue for a course.
  * 
  * @author William Ledingham
  * @version 1.0
- * @since 2020-04-10
+ * @since 10-04-2020
  *
  */
 public class SearchCatPanel extends JFrame {
-
-	
 	/**
 	 * Serial ID for Serialization, never used here.
 	 */
 	private static final long serialVersionUID = 722563940237963896L;
-
 	/**
 	 * Title at top of the panel.
 	 */
-	private JLabel title = new JLabel("Search Course Catalogue");
-	
+	private JLabel title = new JLabel("Search Course Catalogue");	
 	/**
 	 * Label for the Faculty TextField.
 	 */
@@ -60,7 +55,7 @@ public class SearchCatPanel extends JFrame {
 	private JButton returnToMainButton = new JButton("Return to Main Window");
 	
 	/**
-	 * Constructs InserPanel with all components
+	 * Constructs SearchCatPanel with all components
 	 */
 	public SearchCatPanel()
 	{
@@ -116,12 +111,15 @@ public class SearchCatPanel extends JFrame {
 	}
 	/**
 	 * Gets the course id entered in the course id TextField.
-	 * @return Integer of the course id entered in the TextField.
+	 * @return String of the course id entered in the TextField.
 	 */
 	public String getCourseId()
 	{
 		return courseIdTextField.getText();
 	}
+	/**
+	 * clears teh faculty and courseId text fields
+	 */
 
 	public void clearFields() {
 		facultyTextField.setText("");

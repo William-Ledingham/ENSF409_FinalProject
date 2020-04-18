@@ -2,20 +2,34 @@ package server.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
+/**
+ * A list of all the courses available
+ * @author William Ledingham
+ * @version 1.0
+ * @since 12-05-2020
+ *
+ */
 public class CourseCatalogue implements Serializable {
 	
 	/**
-	 * 
+	 * The id for object serialization
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	
+	/**
+	 * the list of courses available
+	 */
 	private ArrayList <Course> courseList;
-	
+	/**
+	 * Creates a new empty course catalogue
+	 */
 	public CourseCatalogue () {
 	}
-
+	/**
+	 * creates a new course offering and adds to the given course
+	 * @param c the course for offering to be added to
+	 * @param secNum the section number for the offering
+	 * @param secCap the capacity for the offering
+	 */
 	public void createCourseOffering (Course c, int secNum, int secCap) {
 		if (c!= null) {
 			CourseOffering theOffering = new CourseOffering (secNum, secCap);
@@ -25,9 +39,9 @@ public class CourseCatalogue implements Serializable {
 	
 	/**
 	 * Searches the course catalogue by a name and course number.
-	 * @param courseName
-	 * @param courseNum
-	 * @return
+	 * @param courseName the course name
+	 * @param courseNum the course num
+	 * @return the course being searched for if found, otherwise reutnrs null
 	 */
 	public Course searchCat (String courseName, int courseNum) {
 		for (Course c : courseList) {
@@ -36,7 +50,6 @@ public class CourseCatalogue implements Serializable {
 				return c;
 			}	
 		}
-		// displayCourseNotFoundError(); // too many messages in the server now
 		return null;
 	}
 	
@@ -53,12 +66,17 @@ public class CourseCatalogue implements Serializable {
 		}
 		return null;
 	}
-	
+	/**
+	 * Gets the course list
+	 * @return The course list
+	 */
 	public ArrayList <Course> getCourseList() {
 		return courseList;
 	}
-
-
+	/**
+	 * Sets the course list.
+	 * @param courseList the course list.
+	 */
 	public void setCourseList(ArrayList <Course> courseList) {
 		this.courseList = courseList;
 	}

@@ -11,11 +11,19 @@ import java.util.concurrent.Executors;
  * The server runs on port 9090.
  * 
  * @author Parker
+ * @version 1.0
+ * @since 12-05-2020
  *
  */
 public class ServerCommController {
 	
+	/**
+	 * object used to communicate between client and server
+	 */
 	private Socket socket;
+	/**
+	 * socket to manage server
+	 */
 	private ServerSocket serverSocket;
 
 	/**
@@ -28,10 +36,18 @@ public class ServerCommController {
 	 */
 	private ObjectInputStream socketReceive = null;
 	
-	
+	/**
+	 * object to manage the thread pool
+	 */
 	private ExecutorService pool;
+	/**
+	 * object containing the run method to be executed by the server
+	 */
 	private DBController databaseController;
-	
+	/**
+	 * creates a new serverCommController with the specified port
+	 * @param port the port to create the connection at
+	 */
 	public ServerCommController(int port)
 	{
 		try
@@ -44,22 +60,18 @@ public class ServerCommController {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * method to begin running the server
+	 */
 	public void runServer()
 	{
 		try 
 		{
-
 			while(true)
 			{
 
 				socket = serverSocket.accept(); 
 				System.out.println("Connection accepted by server!");
-
-				//We could also do serialization to straight up send objects back and forth.
-				//Or we just do the communication with Strings.
-				//socketIn = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
-				//socketOut = new PrintWriter(aSocket.getOutputStream(), true);
 				
 				// Create connections to server
 				try {

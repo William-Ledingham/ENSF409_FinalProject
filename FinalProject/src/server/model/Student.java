@@ -2,20 +2,30 @@ package server.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
-public class Student implements Serializable {
-	
+/**
+ * Keeps track of the students information
+ * @author William Ledingham
+ * @version 1.0
+ * @since 12-05-2020
+ *
+ */
+public class Student implements Serializable {	
 	/**
-	 * 
+	 * The object serialization ID.
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	
+	/**
+	 * The name of the student
+	 */
 	private String studentName;
+	/**
+	 * The students ID.
+	 */
 	private int studentId;
-	//private ArrayList<CourseOffering> offeringList;
-	private ArrayList<Registration> studentRegList;
-		
+	/**
+	 * The list of registrations for the student.
+	 */
+	private ArrayList<Registration> studentRegList;		
 	/**
 	 * Gets the registration list.
 	 * @return the studentRegList
@@ -23,16 +33,27 @@ public class Student implements Serializable {
 	public ArrayList<Registration> getStudentRegList() {
 		return studentRegList;
 	}
-
+	/**
+	 * Creates a new student with the given name and student ID.
+	 * @param studentName the name of the student
+	 * @param studentId the students ID.
+	 */
 	public Student (String studentName, int studentId) {
 		this.setStudentName(studentName);
 		this.setStudentId(studentId);
 		studentRegList = new ArrayList<Registration>();
 	}
-
+	/**
+	 * Adds a new registration to the students registration list.
+	 * @param registration the registration to be added
+	 */
 	public void addRegistration(Registration registration) {
 		studentRegList.add(registration);
 	}
+	/**
+	 * Removes a registration from the student registration list for a given course.
+	 * @param course the course that the registration contains
+	 */
 	public void deleteRegistration(Course course)
 	{
 		for(Registration reg : studentRegList)
@@ -44,6 +65,10 @@ public class Student implements Serializable {
 			}
 		}
 	}
+	/**
+	 * Removes a registration from the student registration list for a given registration.
+	 * @param reg the registration to be removed
+	 */
 	public void deleteRegistration(Registration reg)
 	{
 		studentRegList.remove(reg);
@@ -68,7 +93,9 @@ public class Student implements Serializable {
 		}
 		return out;
 	}
-	
+	/**
+	 * Prints all courses in the students registration list.
+	 */
 	public void printAllCourses()
 	{
 		for(Registration reg : studentRegList)
@@ -80,20 +107,31 @@ public class Student implements Serializable {
 			System.out.println("Student is not registered for any courses");
 		}
 	}
-	
-	
+	/**
+	 * Gets the name of the student.
+	 * @return the name of the student
+	 */
 	public String getStudentName() {
 		return studentName;
 	}
-
+	/**
+	 * Sets the name of the student.
+	 * @param studentName the name of the student
+	 */
 	public void setStudentName(String studentName) {
 		this.studentName = studentName;
 	}
-
+	/**
+	 * Gets the students ID
+	 * @return the students ID
+	 */
 	public int getStudentId() {
 		return studentId;
 	}
-
+	/**
+	 * Sets the students ID.
+	 * @param studentId the student ID
+	 */
 	public void setStudentId(int studentId) {
 		this.studentId = studentId;
 	}

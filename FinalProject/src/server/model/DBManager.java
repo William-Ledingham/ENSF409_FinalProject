@@ -6,18 +6,32 @@ import java.util.ArrayList;
 /**
  * Manages the database of everything, on the server side.
  * Connects to the MySQL server, loads in content, and writes it back to the database.
- * @author Parker
+ * @author Parker Link
+ * @version 1.0
+ * @since 12-05-2020
  *
  */
 public class DBManager implements SQLCredentials {
-	
+	/**
+	 * The list of courses to be displayed in the GUI and used to create the course catalogue.
+	 */
 	private ArrayList <Course> courseList;
+	/**
+	 * The list of students to be used for login.
+	 */
 	private ArrayList <Student> studentList;
+	/**
+	 * The catalogue of courses that the student can register in
+	 */
 	private CourseCatalogue cat;
-
+	/**
+	 * The connection used to connect to the database
+	 */
 	private Connection conn;
+	/**
+	 * The object used to communicate with the database
+	 */
 	private ResultSet rs;
-
 	/**
 	 * Initializes the connection to the MySQL database, as per the connection details
 	 * defined in the SQLCredentials interface.
@@ -40,21 +54,20 @@ public class DBManager implements SQLCredentials {
 	 */
 	public void close() {
 		try {
-			// rs.close();
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Creates a new database Manager. Creates a connection to the data base and reads the data in.
+	 */
 	public DBManager () {
 		// Initialize Connection to MySQL Server
-		initializeConnection();
-		
+		initializeConnection();		
 		// Read everything from the database
 		readDatabase();
-	}
-	
+	}	
 	/**
 	 * Reads everything from the database, compiles it (effectively syncs the database). Reads the courses, students, and registrations from scratch.
 	 */
@@ -69,7 +82,10 @@ public class DBManager implements SQLCredentials {
 		readRegistrationsFromDatabase();
 	}
 
-	
+	/**
+	 * Reads in the list of courses from the courses table in the data base and adds them to the course list and
+	 * catalogue.
+	 */
 	private void readCoursesFromDatabase() {
 		// Start with a blank version of the course lists/course catalogue
 		courseList = new ArrayList<Course>();
@@ -92,7 +108,9 @@ public class DBManager implements SQLCredentials {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Reads in the list of students from the student table in the data base and adds them to the student list.
+	 */
 	private void readStudentsFromDatabase() {
 		// Start with a blank version of the student list
 		studentList = new ArrayList<Student>();
@@ -137,11 +155,11 @@ public class DBManager implements SQLCredentials {
 	 * Adds it both locally and to the MySQL server.
 	 * This method is only called from the DBController when a user adds a new course, not during setup.
 	 * 
-	 * @param student
-	 * @param cat 
-	 * @param courseName
-	 * @param courseNum
-	 * @param courseSection
+	 * @param student the student to be added to the course.
+	 * @param cat the catalogue to find the course in
+	 * @param courseName the given course name
+	 * @param courseNum the given course number
+	 * @param courseSection the given course section
 	 * @return A success/error message (gotten from the student.registerStudentInCourse) for the user
 	 */
 	public String registerStudentInCourse(Student student, CourseCatalogue cat, String courseName, int courseNum, int courseSection) {
@@ -185,13 +203,13 @@ public class DBManager implements SQLCredentials {
 	}
 	
 	/**
-	 * Deletes a registration from the specified course.
+	 * Deletes a registration from the specified course. Deletes it both locally and in the SQL database.
 	 * 
-	 * @param student
-	 * @param cat
-	 * @param courseName
-	 * @param courseNum
-	 * @param courseSection
+	 * @param student the student to have the registration deleted from
+	 * @param cat the catalogue to get the course from
+	 * @param courseName the name of the course
+	 * @param courseNum the course number
+	 * @param courseSection the course section
 	 * @return Success/failure message to user
 	 */
 	public String deleteStudentFromCourse(Student student, CourseCatalogue cat, String courseName, int courseNum, int courseSection) {
@@ -228,9 +246,9 @@ public class DBManager implements SQLCredentials {
 	}
 	
 	/**
-	 * Searches the students list for a single student, but their ID.
+	 * Searches the students list for a single student by their ID.
 	 * @param studentID ID of Student
-	 * @return The student, or null if not found
+	 * @return The student, or null if not found.
 	 */
 	public Student getStudentByID(int studentID)
 	{
@@ -254,18 +272,15 @@ public class DBManager implements SQLCredentials {
 	}
 	
 	/**
-	 * Adds a course offering (and course) to the database. Unused.
-	 * @param faculty
-	 * @param courseNumber
-	 * @param lectNumber
+	 * Adds a course offering (and course) to the database.
+	 * @param courseID the unique course ID
+	 * @param faculty the faculty of the course
+	 * @param courseNumber the course number
+	 * @param lectNumber the section number
 	 */
 	public void addCourseOffering(int courseID, String faculty, int courseNumber, int lectNumber) {
-		cat.createCourseOffering(new Course(courseID, faculty, courseNumber), lectNumber, 100);
-		
+		cat.createCourseOffering(new Course(courseID, faculty, courseNumber), lectNumber, 100);		
 		System.out.println("With new course added, we having the following courses: ");
 		System.out.println(cat);
 	}
-	
-	
-
 }

@@ -7,13 +7,17 @@ import java.net.Socket;
 import shared.model.Transmission;
 
 /**
- * Communicates with the server.
+ * Communicates data to the server.
  * 
  * @author Parker Link
- * @since Mar. 13, 2020
+ * @version 1.0
+ * @since 13-03-2020
  *
  */
 public class ClientCommunicator {
+	/**
+	 * used to communicate data to the server
+	 */
 	private Socket socket;
 	
 	/**
@@ -28,7 +32,7 @@ public class ClientCommunicator {
 	
 	
 	/**
-	 * Makes a new object for client-to-server requests, at the default address and port (localhost, 9090).
+	 * Creates a new object for client-to-server requests, at the default address and port (localhost, 9090).
 	 */
 	public ClientCommunicator() {
 		// Create connections to server
@@ -47,11 +51,11 @@ public class ClientCommunicator {
 	 * Sends a transmission to the server.
 	 * 
 	 * @param tx the transmission to send
-	 * @param waitForResponse
+	 * @param waitForResponse determines whether or not to wait for a response from the client
+	 * @return the response from the server
 	 */
 	public Transmission sendTransmission(Transmission tx, boolean waitForResponse) {
-		Transmission rx = null;
-		
+		Transmission rx = null;		
 		// Send the transmission
 		try {
 			socketSend.writeObject(tx);
@@ -71,8 +75,7 @@ public class ClientCommunicator {
 			return rx;
 		}
 		
-		return null;
-		
+		return null;		
 	}
 	
 	/**

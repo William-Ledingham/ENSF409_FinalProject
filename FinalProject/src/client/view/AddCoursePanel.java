@@ -13,7 +13,7 @@ import javax.swing.*;
  * 
  * @author William Ledingham
  * @version 1.0
- * @since 2020-04-10
+ * @since 10-04-2020
  *
  */
 public class AddCoursePanel extends JFrame{
@@ -62,7 +62,7 @@ public class AddCoursePanel extends JFrame{
 	private JButton returnToMainButton = new JButton("Return to Main Window");
 	
 	/**
-	 * Constructs InserPanel with all components
+	 * Constructs InsertPanel with all components
 	 */
 	public AddCoursePanel()
 	{
@@ -123,7 +123,6 @@ public class AddCoursePanel extends JFrame{
 	 */
 	public String getCourseId()
 	{
-		//return Integer.parseInt(courseIdTextField.getText());
 		return courseIdTextField.getText();
 	}
 	/**
@@ -132,10 +131,11 @@ public class AddCoursePanel extends JFrame{
 	 */
 	public String getSection()
 	{
-		//return Integer.parseInt(sectionTextField.getText());
 		return sectionTextField.getText();
 	}
-	
+	/**
+	 * gets rid of the text in the faculty, courseID, and section fields
+	 */
 	public void clearFields() {
 		facultyTextField.setText("");
 		courseIdTextField.setText("");

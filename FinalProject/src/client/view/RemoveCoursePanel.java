@@ -17,21 +17,18 @@ import javax.swing.JTextField;
  * 
  * @author William Ledingham
  * @version 1.0
- * @since 2020-04-10
+ * @since 10-04-2020
  *
  */
 public class RemoveCoursePanel extends JFrame{
-
 	/**
 	 * Serial ID for Serialization, never used here.
 	 */
 	private static final long serialVersionUID = 6232787639472638761L;
-
 	/**
 	 * Title at top of the panel.
 	 */
-	private JLabel title = new JLabel("Remove Course");
-	
+	private JLabel title = new JLabel("Remove Course");	
 	/**
 	 * Label for the Faculty TextField.
 	 */
@@ -66,7 +63,7 @@ public class RemoveCoursePanel extends JFrame{
 	private JButton returnToMainButton = new JButton("Return to Main Window");
 	
 	/**
-	 * Constructs InserPanel with all components
+	 * Constructs RemoveCoursePanel with all components
 	 */
 	public RemoveCoursePanel()
 	{
@@ -123,7 +120,7 @@ public class RemoveCoursePanel extends JFrame{
 	}
 	/**
 	 * Gets the course id entered in the course id TextField.
-	 * @return Integer of course id.
+	 * @return String of course id.
 	 */
 	public String getCourseId()
 	{
@@ -131,13 +128,15 @@ public class RemoveCoursePanel extends JFrame{
 	}
 	/**
 	 * Gets the section number entered in the section number TextField.
-	 * @return
+	 * @return string of the section id
 	 */
 	public String getSection()
 	{
 		return sectionTextField.getText();
 	}
-	
+	/**
+	 * clears the faculty, courseId, and section fields
+	 */
 	public void clearFields() {
 		facultyTextField.setText("");
 		courseIdTextField.setText("");

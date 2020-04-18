@@ -12,7 +12,7 @@ import javax.swing.*;
  * 
  * @author William Ledingham
  * @version 2.0
- * @since 2020-04-03
+ * @since 03-04-2020
  *
  */
 public class GUI extends JFrame {
@@ -100,15 +100,12 @@ public class GUI extends JFrame {
 		northPanel.add(northBottomPanel);
 	
 		JPanel centerPanel = new JPanel(new GridLayout(0, 2));
-		
-
-		
+				
 		courseCatscrollPane.setBounds(10, 60, 780, 500);
 		courseCatscrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		courseCatTextArea.setEditable(false);
 		centerPanel.add(courseCatscrollPane);
-		
-		
+				
 		studentCoursesScrollPane.setBounds(10, 60, 780, 500);
 		studentCoursesScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		studentCoursesTextArea.setEditable(false);
@@ -154,7 +151,7 @@ public class GUI extends JFrame {
 	}
 	
 	/**
-	 * Sets the text in the course catalogue text area.
+	 * Sets the text in the course catalog text area.
 	 * @param s String to be printed to text area.
 	 */
 	public void printToCourseCatTextArea(String s)
@@ -168,9 +165,7 @@ public class GUI extends JFrame {
 	public void printToStudentCoursesTextArea(String s)
 	{
 		studentCoursesTextArea.setText(s);
-	}
-	
-	
+	}	
 	/**
 	 * Prompts user with a dialog box for a students id.
 	 * @return A string of the student id entered.
@@ -178,9 +173,7 @@ public class GUI extends JFrame {
 	public String inputDialogBoxStudentID()
 	{
 		return JOptionPane.showInputDialog("Please enter the Student ID (ex: 1):");
-	}
-
-	
+	}	
 	/**
 	 * Shows message dialog box with specific string.
 	 * @param s Message to be printed in message box.
@@ -192,7 +185,7 @@ public class GUI extends JFrame {
 	
 	/**
 	 * Adds listener to the searchCatButton.
-	 * @param actionListener
+	 * @param actionListener the action listener
 	 */
 	public void addSearchCatButtonListener(ActionListener actionListener)
 	{
@@ -200,7 +193,7 @@ public class GUI extends JFrame {
 	}
 	/**
 	 * Adds listener to the refreshButton.
-	 * @param actionListener
+	 * @param actionListener the action listener
 	 */
 	public void addRefreshButtonListener(ActionListener actionListener)
 	{
@@ -208,7 +201,7 @@ public class GUI extends JFrame {
 	}
 	/**
 	 * Adds listener to the addCourseButton.
-	 * @param actionListener
+	 * @param actionListener the action listener
 	 */
 	public void addAddCourseButtonListener(ActionListener actionListener)
 	{
@@ -216,7 +209,7 @@ public class GUI extends JFrame {
 	}
 	/**
 	 * Adds listener to the removeCourseButton.
-	 * @param actionListener
+	 * @param actionListener the action listener
 	 */
 	public void addRemoveCourseButtonListener(ActionListener actionListener)
 	{
@@ -224,7 +217,7 @@ public class GUI extends JFrame {
 	}
 	/**
 	 * Adds listener to the Add Course button on the AddCoursePanel.
-	 * @param actionListener
+	 * @param actionListener the action listener
 	 */
 	public void addAddCoursePanelButtonListener(ActionListener actionListener)
 	{
@@ -232,7 +225,7 @@ public class GUI extends JFrame {
 	}
 	/**
 	 * Adds listener to the Remove Course button on the RemoveCoursePanel.
-	 * @param actionListener
+	 * @param actionListener the action listener
 	 */
 	public void addRemoveCoursePanelButtonListener(ActionListener actionListener)
 	{
@@ -240,7 +233,7 @@ public class GUI extends JFrame {
 	}
 	/**
 	 * Adds listener to the Search Catalogue button on the SearchCatPanel.
-	 * @param actionListener
+	 * @param actionListener the action listener
 	 */
 	public void addSearchCatPanelButtonListener(ActionListener actionListener)
 	{
@@ -257,7 +250,7 @@ public class GUI extends JFrame {
 	}
 	/**
 	 * Gets RemoveCoursePanel to access information gathered by it.
-	 * @return
+	 * @return the removeCoursePanel 
 	 */
 	public RemoveCoursePanel getRemoveCoursePanel()
 	{
@@ -265,7 +258,7 @@ public class GUI extends JFrame {
 	}
 	/**
 	 * Gets SearchCatPanel to access information gathered by it.
-	 * @return
+	 * @return the searchCatPanel 
 	 */
 	public SearchCatPanel getSearchCatPanel()
 	{
@@ -275,15 +268,10 @@ public class GUI extends JFrame {
 	/**
 	 * Displays a message box to the user to tell them how an action was completed.
 	 * Add fancy stuff later, if we want.
-	 * @param resultMessage The message to display to the user
+	 * @param message The message to display to the user
 	 */
 	public void displayMessageBox(String message) {
 		JOptionPane.showMessageDialog(this, message);
 		
 	}
-	
-	
-
-	
-	
 }

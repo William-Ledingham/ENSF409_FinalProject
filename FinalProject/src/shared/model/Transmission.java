@@ -2,18 +2,18 @@ package shared.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
 /**
  * Represents a single transmission from client-to-server, or from server-to-client. 
  * Each transmission has an action, and contains the associated object(s) used for the transmission.
  * 
  * @author Parker Link
- * @since Mar. 13, 2020
+ * @version 1.0
+ * @since 13-03-2020
  *
  */
 public class Transmission implements Serializable {
 	/**
-	 * Class identifier.
+	 * The obejct serialization ID.
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -33,13 +33,13 @@ public class Transmission implements Serializable {
 	 * 
 	 * - SearchCourse: options specified in options docstring
 	 * 
-	 * - Success (return that it was successful) -> Unused Right Now
+	 * - Success (return that it was successful). Unused Right Now
 	 * - Message: contents = (String)Success/Failure Message
 	 */
 	private String action;
 	
 	/**
-	 * Contents of the transmission. This can be a Student, Class, ArrayList<Class>, etc.
+	 * Contents of the transmission. This can be a Student, Class, ArrayList, etc.
 	 */
 	private Object contents;
 	
@@ -50,25 +50,41 @@ public class Transmission implements Serializable {
 	 */
 	private ArrayList<String> options;
 
-
+	/**
+	 * Creates a new transmission object with the given action, contents, and options
+	 * @param action the action the transmission is requesting
+	 * @param contents the contents of the transmission
+	 * @param options the options for the action
+	 */
 	public Transmission(String action, Object contents, ArrayList<String> options) {
 		this.action = action;
 		this.contents = contents;
 		this.options = options;
 	}
-	
+	/**
+	 * Creates a new transmission object with the given action
+	 * @param action the action the transmission is requesting
+	 */
 	public Transmission(String action) {
 		this.action = action;
 		this.contents = null;
 		this.options = null;
 	}
-	
+	/**
+	 * Creates a new transmission with the given action and options
+	 * @param action the action the transmission is requesting
+	 * @param options the options for the action
+	 */
 	public Transmission(String action, ArrayList<String> options) {
 		this.action = action;
 		this.contents = null;
 		this.options = options;
 	}
-	
+	/**
+	 * Creates a new transmission with a given action and contents
+	 * @param action the action the transmission is requesting
+	 * @param contents the contents of the transmission
+	 */
 	public Transmission(String action, Object contents) {
 		this.action = action;
 		this.contents = contents;

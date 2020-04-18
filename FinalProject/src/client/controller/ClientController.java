@@ -15,7 +15,7 @@ import java.util.Arrays;
  * 
  * @author William Ledingham
  * @version 1.0
- * @since 2020-04-10
+ * @since 10-04-2020
  *
  */
 public class ClientController {
@@ -29,12 +29,14 @@ public class ClientController {
 	 * Connection from client to server. Made in constructor (composition relationship).
 	 */
 	private ClientCommunicator clientComm;
-	
-	private int studentID;
-	
 	/**
-	 * 
-	 * @param theView
+	 * the student ID of the student that logged in
+	 */
+	
+	private int studentID;	
+	/**
+	 * creates a new client controller with a GUI
+	 * @param theView the GUI being used
 	 */
 	public ClientController(GUI theView)
 	{
@@ -59,8 +61,7 @@ public class ClientController {
 		studentID = promptForStudentID();
 		
 		// Refresh the Screen
-		refreshAction();
-		
+		refreshAction();		
 	}
 	
 	/**
@@ -69,7 +70,14 @@ public class ClientController {
 	public void close() {
 		clientComm.close();
 	}
-
+	
+	/**
+	 * Class used to listen for openSearchCatPanel Call.
+	 * @author William Ledingham
+	 * @version 1.0
+	 * @since 10-04-2020
+	 *
+	 */
 	class SearchCatButtonListener implements ActionListener
 	{
 		@Override
@@ -80,7 +88,13 @@ public class ClientController {
 		}
 	}
 	
-
+	/**
+	 * Class used to listen for refershAction Call.
+	 * @author William Ledingham
+	 * @version 1.0
+	 * @since 10-04-2020
+	 *
+	 */
 	class RefreshButtonListener implements ActionListener
 	{
 		@Override
@@ -90,7 +104,13 @@ public class ClientController {
 		}
 
 	}
-
+	/**
+	 * Class used to listen for openAddCourseFrame Call.
+	 * @author William Ledingham
+	 * @version 1.0
+	 * @since 10-04-2020
+	 *
+	 */
 	class AddCourseButtonListener implements ActionListener
 	{
 		@Override
@@ -101,13 +121,18 @@ public class ClientController {
 		}
 	}
 	
-
+	/**
+	 * Class used to listen for openRemoveCourseFrame Call.
+	 * @author William Ledingham
+	 * @version 1.0
+	 * @since 10-04-2020
+	 *
+	 */
 	class RemoveCourseButtonListener implements ActionListener
 	{
 		@Override
 		public void actionPerformed(ActionEvent e) 
-		{
-			
+		{			
 			theView.openRemoveCourseFrame();
 		}
 	}
@@ -137,7 +162,9 @@ public class ClientController {
 			refreshAction();
 		}
 	}
-	
+	/**
+	 * Class acts as the ActionListener for the remove Course Button of the AddCourse GUI.
+	 */
 	class RemoveCoursePanelListener implements ActionListener
 	{
 		@Override
@@ -159,7 +186,9 @@ public class ClientController {
 			refreshAction();
 		}
 	}
-	
+	/**
+	 * Class acts as the ActionListener for the search Courses Button of the AddCourse GUI.
+	 */
 	class SearchCatPanelListener implements ActionListener
 	{
 		@Override
@@ -201,7 +230,6 @@ public class ClientController {
 
 	/**
 	 * Refreshes the two text panes in the GUI window, by calling the server with the associated information.
-	 * This method could be broken into two separate methods: refreshCourseCatalogue and refreshStudentRegList.
 	 */
 	public void refreshAction() {
 
@@ -223,7 +251,7 @@ public class ClientController {
 
 	/**
 	 * Prompts the user for their student ID, until they enter a valid one.
-	 * @return
+	 * @return the valid student ID entered
 	 */
 	private int promptForStudentID() {
 		int studentID = -1;
@@ -248,7 +276,13 @@ public class ClientController {
 		return studentID;
 	}
 	
-
+	/**
+	 * Class used to listen for the windowClosed Call
+	 * @author William Ledingham
+	 * @version 1.0
+	 * @since 10-04-2020
+	 *
+	 */
 	class MyWindowListener implements WindowListener{
 
 		@Override
@@ -277,7 +311,13 @@ public class ClientController {
 		public void windowDeactivated(WindowEvent e) { }
 		
 	}
-	
+	/**
+	 * Class used to listen for windowClosed Call.
+	 * @author William Ledingham
+	 * @version 1.0
+	 * @since 10-04-2020
+	 *
+	 */
 	class MyAddWindowListener implements WindowListener{
 
 		@Override
@@ -305,7 +345,13 @@ public class ClientController {
 		public void windowDeactivated(WindowEvent e) { }
 		
 	}
-	
+	/**
+	 * Class used to listen for the windowClosed Call.
+	 * @author William Ledingham
+	 * @version 1.0
+	 * @since 10-04-2020
+	 *
+	 */
 	class MyRemoveWindowListener implements WindowListener{
 
 		@Override
@@ -333,7 +379,13 @@ public class ClientController {
 		public void windowDeactivated(WindowEvent e) { }
 		
 	}
-	
+	/**
+	 * Class used to listen for the windowClosed Call.
+	 * @author William Ledingham
+	 * @version 1.0
+	 * @since 10-04-2020
+	 *
+	 */
 	class MySearchWindowListener implements WindowListener{
 		@Override
 		public void windowOpened(WindowEvent e) { }

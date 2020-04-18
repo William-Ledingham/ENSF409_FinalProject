@@ -4,10 +4,14 @@ import server.model.*;
 import shared.model.*;
 
 import java.io.*;
-
+/**
+ * implements the communication between the client, server and data base
+ * @version 1.0
+ * @since 12-04-2020
+ * @author Michaela
+ *
+ */
 public class DBController implements Runnable {
-
-
 	/**
 	 * For sending objects to client (server-to-client).
 	 */
@@ -17,16 +21,26 @@ public class DBController implements Runnable {
 	 * For receiving objects from client (client-to-server).
 	 */
 	private ObjectInputStream socketReceive = null;
-	
+	/**
+	 * object to manage sql database
+	 */
 	DBManager databaseManager;
+	/**
+	 * creates a new DBController with the specified input stream and output stream
+	 * @param socketReceive the stream for receiving data
+	 * @param socketSend the stream for sending data
+	 */
 	public DBController(ObjectInputStream socketReceive, ObjectOutputStream socketSend)
 	{
-		databaseManager = new DBManager();
-		
+		databaseManager = new DBManager();		
 		this.socketReceive = socketReceive;
 		this.socketSend = socketSend;
 	}
-	
+	/**
+	 * executes the communication between the client and server. Waits for a transmission object
+	 * and then parses the object and executes the action contained in the object. If required
+	 * sends a response to the client. 
+	 */
 	@Override
 	public void run() 
 	{
@@ -160,7 +174,10 @@ public class DBController implements Runnable {
 			}
 		}
 	}
-	
+	/**
+	 * trys to send a transmission object to the output stream (client)
+	 * @param tx the transmission object to be sent
+	 */
 	public void sendResponse(Transmission tx) {
 		try {
 			socketSend.writeObject((Object) tx);
