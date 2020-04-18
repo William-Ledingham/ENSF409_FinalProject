@@ -190,6 +190,7 @@ public class ClientController {
 		GUI myApp = new GUI();
 		myApp.setVisible(true);
 		
+		@SuppressWarnings("unused")
 		ClientController con = new ClientController(myApp);
 		
 		/*
