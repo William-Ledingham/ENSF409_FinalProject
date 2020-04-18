@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Main entry point for the client. Contains the {@code static main} method
+ * Main entry point for the client. Contains the {@code static main} method.
  * 
  * @author William Ledingham
  * @version 1.0
