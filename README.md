@@ -2,9 +2,9 @@
 This project implements a student course registration system, where student clients can connect to a server, view courses, register for courses, and remove their registration in courses. It runs a thread pool, and stores the data in a MySQL server. Client-server communication is handled by seralizing the data.
 
 ## Full Names and Emails
-* Parker Link
-* Michaela Gartner
-* William Ledingham
+* Parker Link (parker.link1@ucalgary.ca)
+* Michaela Gartner (michaela.gartner@ucalgary.ca)
+* William Ledingham (william.ledingham1@ucalgary.ca)
 
 ## Run Instructions
 1. Setup a MySQL server, running locally, with an account with the following login credentials:
