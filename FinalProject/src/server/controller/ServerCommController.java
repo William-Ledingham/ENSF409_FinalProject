@@ -3,8 +3,11 @@ package server.controller;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.ResultSet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import java.sql.*;
 
 /**
  * This is the main entry point for the entire server, and runs the server.
@@ -32,8 +35,11 @@ public class ServerCommController {
 	private ExecutorService pool;
 	private DBController databaseController;
 	
+
+	
 	public ServerCommController(int port)
 	{
+		
 		try
 		{
 			serverSocket = new ServerSocket(port);
@@ -44,6 +50,8 @@ public class ServerCommController {
 			e.printStackTrace();
 		}
 	}
+	
+	
 	
 	public void runServer()
 	{

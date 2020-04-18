@@ -4,26 +4,67 @@ import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import server.controller.IDBCredentials;
 
 /**
  * Manages the database of everything, on the server side.
  * @author Parker
  *
  */
-public class DBManager {
+public class DBManager implements IDBCredentials {
 	
 	private ArrayList <Course> courseList;
 	private ArrayList <Student> studentList;
 	private CourseCatalogue cat;
 
+	//database
+	private Connection conn;
+	private ResultSet rs;
+	
 	public DBManager () {
+		initializeDatabaseConnection();
 		courseList = new ArrayList<Course>();
 		studentList = new ArrayList<Student>();
 		cat = new CourseCatalogue();
 		cat.setCourseList(courseList);
 		cat = readCoursesFromDatabase();
 		studentList = readStudentsFromDatabase();
+	}
+	
+	
+	public void initializeDatabaseConnection()
+	{
+		try {
+			// Register JDBC driver
+			Driver driver = new com.mysql.cj.jdbc.Driver();
+			DriverManager.registerDriver(driver);
+			// Open a connection
+			conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+		} catch (SQLException e) {
+			System.out.println("Problem");
+			e.printStackTrace();
+		}
+	}
+	
+	public void closeDatabase() {
+		try {
+			// rs.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public Student readStudent()
+	{
+		
 	}
 
 	
