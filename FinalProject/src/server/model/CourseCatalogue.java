@@ -17,13 +17,7 @@ public class CourseCatalogue implements Serializable {
 	public CourseCatalogue () {
 		//loadFromDataBase ();
 	}
-/*	
-	private void loadFromDataBase() {
-		// TODO Auto-generated method stub
-		DBManager db = new DBManager();
-		setCourseList(db.readCoursesFromDataBase());
-		
-	}*/
+
 	public void createCourseOffering (Course c, int secNum, int secCap) {
 		if (c!= null) {
 			CourseOffering theOffering = new CourseOffering (secNum, secCap);
@@ -37,17 +31,16 @@ public class CourseCatalogue implements Serializable {
 				return c;
 			}	
 		}
-		displayCourseNotFoundError();
+		// displayCourseNotFoundError(); // too many messages
 		return null;
 	}
-	//Typically, methods that are called from other methods of the class
-	//are private and are not exposed for use by other classes.
-	//These methods are refereed to as helper methods or utility methods
+/*
 	private void displayCourseNotFoundError() {
-		// TODO Auto-generated method stub
 		System.err.println("Course was not found!");
 		
 	}
+	*/
+	
 	public ArrayList <Course> getCourseList() {
 		return courseList;
 	}

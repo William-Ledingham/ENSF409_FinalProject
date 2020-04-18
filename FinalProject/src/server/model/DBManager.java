@@ -1,61 +1,89 @@
 package server.model;
 
-import java.io.EOFException;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
+import java.sql.*;
 import java.util.ArrayList;
 
 /**
  * Manages the database of everything, on the server side.
+ * Connects to the MySQL server, loads in content, and writes it back to the database.
  * @author Parker
  *
  */
-public class DBManager {
+public class DBManager implements SQLCredentials {
 	
 	private ArrayList <Course> courseList;
 	private ArrayList <Student> studentList;
 	private CourseCatalogue cat;
 
+	private Connection conn;
+	private ResultSet rs;
+
+	/**
+	 * Initializes the connection to the MySQL database, as per the connection details
+	 * defined in the SQLCredentials interface.
+	 */
+	public void initializeConnection() {
+		try {
+			// Register JDBC driver
+			Driver driver = new com.mysql.cj.jdbc.Driver();
+			DriverManager.registerDriver(driver);
+			// Open a connection
+			conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+		} catch (SQLException e) {
+			System.err.println("Problem Opening MySQL Connection");
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Closes the connection to the MySQL database server.
+	 */
+	public void close() {
+		try {
+			// rs.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public DBManager () {
-		courseList = new ArrayList<Course>();
+		// Initialize Connection to MySQL Server
+		initializeConnection();
+		
+		// Read the courses
+		readCoursesFromDatabase();
+		
+		
 		studentList = new ArrayList<Student>();
-		cat = new CourseCatalogue();
-		cat.setCourseList(courseList);
-		cat = readCoursesFromDatabase();
 		studentList = readStudentsFromDatabase();
 	}
 
 	
-	public CourseCatalogue readCoursesFromDatabase() {
-		ObjectInputStream input = null;
-		String fileName = "courseCatalogue.ser";
-		CourseCatalogue courseCat = null;		        
-		try
-		{
-			input = new ObjectInputStream(new FileInputStream( fileName ) );
-		}
-		catch ( IOException ioException )
-		{
-			System.err.println( "Error opening file." );
-		}		        
-		try
-		{
-			while ( true )
-		    {
-				courseCat = (CourseCatalogue)input.readObject();
-				// System.out.println(courseCat.toString()); // DEBUG 
-		     }
-		 }catch(EOFException e) {
-			 System.out.println("Done reading file (course catalogue)");
-		 }
-		catch (Exception e) {
-			System.err.println("Other Error");
+	public void readCoursesFromDatabase() {
+		// Start with a blank version of the course lists/course catalogue
+		courseList = new ArrayList<Course>();
+		cat = new CourseCatalogue();
+		cat.setCourseList(courseList);
+		
+		try {
+			String query = "SELECT * FROM courses";
+			PreparedStatement pStat = conn.prepareStatement(query);
+			rs = pStat.executeQuery();
+			while (rs.next()) { // iterate through each row in the table
+				Course thisCourse = new Course(rs.getString("name"), rs.getInt("courseNum"));
+				for (String offeringStr : rs.getString("sections").split(",")) { // loop through each offering
+					thisCourse.addOffering(new CourseOffering(Integer.parseInt(offeringStr), 10)); // 10 is the hardcoded capacity, look away
+				}
+				courseList.add(thisCourse);
+			}
+			pStat.close();
+		} catch(SQLException e) {
 			e.printStackTrace();
 		}
-		return courseCat;
-		
 	}
+	
 	public void WriteCourseCatalogue() {
 		
 	}
