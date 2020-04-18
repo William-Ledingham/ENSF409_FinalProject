@@ -1,6 +1,5 @@
 package server.model;
 
-import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -54,10 +53,12 @@ public class DBManager implements SQLCredentials {
 		
 		// Read the courses
 		readCoursesFromDatabase();
+
+		// Read the students
+		readStudentsFromDatabase();
 		
-		
-		studentList = new ArrayList<Student>();
-		studentList = readStudentsFromDatabase();
+		// Read the registrations
+		readRegistrationsFromDatabase();
 	}
 
 	
@@ -72,7 +73,7 @@ public class DBManager implements SQLCredentials {
 			PreparedStatement pStat = conn.prepareStatement(query);
 			rs = pStat.executeQuery();
 			while (rs.next()) { // iterate through each row in the table
-				Course thisCourse = new Course(rs.getString("name"), rs.getInt("courseNum"));
+				Course thisCourse = new Course(rs.getInt("id"), rs.getString("name"), rs.getInt("courseNum"));
 				for (String offeringStr : rs.getString("sections").split(",")) { // loop through each offering
 					thisCourse.addOffering(new CourseOffering(Integer.parseInt(offeringStr), 10)); // 10 is the hardcoded capacity, look away
 				}
@@ -84,40 +85,43 @@ public class DBManager implements SQLCredentials {
 		}
 	}
 	
-	public void WriteCourseCatalogue() {
+	public void readStudentsFromDatabase() {
+		// Start with a blank version of the student list
+		studentList = new ArrayList<Student>();
 		
-	}
-	public ArrayList<Student> readStudentsFromDatabase() {
-		ObjectInputStream input = null;
-		String fileName = "studentList.ser";
-		ArrayList <Student> studentList = new ArrayList<Student>();	        
-		//StudentList list = new StudentList();
-		Student s;
-		
-		try
-		{
-			input = new ObjectInputStream(new FileInputStream( fileName ) );
-		 }catch(EOFException e) {
-			 System.out.println("Done reading file (student list)");
-		 }
-		catch (Exception e) {
-			System.err.println("Other Error");
+		try {
+			String query = "SELECT * FROM students";
+			PreparedStatement pStat = conn.prepareStatement(query);
+			rs = pStat.executeQuery();
+			while (rs.next()) { // iterate through each row in the table
+				Student thisStudent = new Student(rs.getString("name"), rs.getInt("id"));
+				studentList.add(thisStudent);
+			}
+			pStat.close();
+		} catch(SQLException e) {
 			e.printStackTrace();
-		}	        
-		try
-		{
-			while ( true )
-		    {
-				
-				s = (Student)input.readObject();
-		       // System.out.println(s.toString()); // DEBUG
-		        studentList.add(s);
-		     }   
-		 }catch(Exception e) {
-			 System.out.println("Done reading file (student list)");
-		 }
-		return studentList;
-		
+		}
+	}
+	
+	/**
+	 * Reads all the registrations from the 'registrations' table, and adds them to the respective students and course offerings.
+	 * If we re-designed the system, we would implement the registration tracking system differently.
+	 */
+	public void readRegistrationsFromDatabase() {		
+		try {
+			String query = "SELECT * FROM registrations";
+			PreparedStatement pStat = conn.prepareStatement(query);
+			rs = pStat.executeQuery();
+			while (rs.next()) { // iterate through each row in the table (each row is a registration)
+				Student student = getStudentByID(rs.getInt("studentID"));
+				CourseOffering offering = cat.searchCat(rs.getInt("courseID")).getCourseOfferingAt(rs.getInt("section"));
+				Registration reg = new Registration(student, offering);
+				reg.addRegistration();
+			}
+			pStat.close();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -147,13 +151,13 @@ public class DBManager implements SQLCredentials {
 	}
 	
 	/**
-	 * Adds a course offering (and course) to the database.
+	 * Adds a course offering (and course) to the database. Unused.
 	 * @param faculty
 	 * @param courseNumber
 	 * @param lectNumber
 	 */
-	public void addCourseOffering(String faculty, int courseNumber, int lectNumber) {
-		cat.createCourseOffering(new Course(faculty, courseNumber), lectNumber, 100);
+	public void addCourseOffering(int courseID, String faculty, int courseNumber, int lectNumber) {
+		cat.createCourseOffering(new Course(courseID, faculty, courseNumber), lectNumber, 100);
 		
 		System.out.println("With new course added, we having the following courses: ");
 		System.out.println(cat);

@@ -2,7 +2,6 @@ package server.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class CourseCatalogue implements Serializable {
 	
@@ -15,7 +14,6 @@ public class CourseCatalogue implements Serializable {
 	private ArrayList <Course> courseList;
 	
 	public CourseCatalogue () {
-		//loadFromDataBase ();
 	}
 
 	public void createCourseOffering (Course c, int secNum, int secCap) {
@@ -24,6 +22,13 @@ public class CourseCatalogue implements Serializable {
 			c.addOffering(theOffering);
 		}
 	}
+	
+	/**
+	 * Searches the course catalogue by a name and course number.
+	 * @param courseName
+	 * @param courseNum
+	 * @return
+	 */
 	public Course searchCat (String courseName, int courseNum) {
 		for (Course c : courseList) {
 			if (courseName.equals(c.getCourseName()) &&
@@ -31,15 +36,23 @@ public class CourseCatalogue implements Serializable {
 				return c;
 			}	
 		}
-		// displayCourseNotFoundError(); // too many messages
+		// displayCourseNotFoundError(); // too many messages in the server now
 		return null;
 	}
-/*
-	private void displayCourseNotFoundError() {
-		System.err.println("Course was not found!");
-		
+	
+	/**
+	 * Searches the course catalogue by a course ID number (different than a course number).
+	 * @param courseID The course ID number (different than a course number).
+	 * @return the course.
+	 */
+	public Course searchCat(int courseID) {
+		for (Course course : courseList) {
+			if (course.getCourseID() == courseID) {
+				return course;
+			}
+		}
+		return null;
 	}
-	*/
 	
 	public ArrayList <Course> getCourseList() {
 		return courseList;
@@ -57,17 +70,6 @@ public class CourseCatalogue implements Serializable {
 			st += "\n";
 		}
 		return st;
-	}
-	
-	public void userSearchCatalogue()
-	{
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter course Name: ");
-		String searchCourseName = sc.nextLine();	
-		System.out.println("Enter course ID: ");
-		int searchCourseID = Integer.parseInt(sc.nextLine());
-		System.out.println(searchCat(searchCourseName, searchCourseID));
-		sc.close();
 	}
 
 }

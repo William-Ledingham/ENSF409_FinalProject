@@ -14,10 +14,12 @@ public class Course implements Serializable {
 	private int courseNum;
 	private ArrayList<Course> preReq;
 	private ArrayList<CourseOffering> offeringList;
+	private int id;
 
-	public Course(String courseName, int courseNum) {
+	public Course(int id, String courseName, int courseNum) {
 		this.setCourseName(courseName);
 		this.setCourseNum(courseNum);
+		this.id = id;
 		// Both of the following are only association
 		preReq = new ArrayList<Course>();
 		offeringList = new ArrayList<CourseOffering>();
@@ -46,6 +48,10 @@ public class Course implements Serializable {
 
 	public int getCourseNum() {
 		return courseNum;
+	}
+	
+	public int getCourseID() {
+		return id;
 	}
 
 	public void setCourseNum(int courseNum) {

@@ -17,7 +17,7 @@ public class Student implements Serializable {
 	private ArrayList<Registration> studentRegList;
 		
 	/**
-	 * Gets the registration list
+	 * Gets the registration list.
 	 * @return the studentRegList
 	 */
 	public ArrayList<Registration> getStudentRegList() {
