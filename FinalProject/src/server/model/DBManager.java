@@ -137,11 +137,12 @@ public class DBManager implements SQLCredentials {
 	 * Adds it both locally and to the MySQL server.
 	 * This method is only called from the DBController when a user adds a new course, not during setup.
 	 * 
+	 * @param student
 	 * @param cat 
 	 * @param courseName
 	 * @param courseNum
 	 * @param courseSection
-	 * @return A success/error message (gotten from the student.registerStudentInCourse)
+	 * @return A success/error message (gotten from the student.registerStudentInCourse) for the user
 	 */
 	public String registerStudentInCourse(Student student, CourseCatalogue cat, String courseName, int courseNum, int courseSection) {
 		Course course = cat.searchCat(courseName, courseNum);
@@ -181,6 +182,49 @@ public class DBManager implements SQLCredentials {
 		{
 			return "Unfortunately you have 6 classes already.";
 		}
+	}
+	
+	/**
+	 * Deletes a registration from the specified course.
+	 * 
+	 * @param student
+	 * @param cat
+	 * @param courseName
+	 * @param courseNum
+	 * @param courseSection
+	 * @return Success/failure message to user
+	 */
+	public String deleteStudentFromCourse(Student student, CourseCatalogue cat, String courseName, int courseNum, int courseSection) {
+		Course course = cat.searchCat(courseName, courseNum);
+		
+		if (course == null) {
+			return "Course Not Found (Check the Course Name and Number)";
+		}
+
+		CourseOffering offering = course.getCourseOfferingAt(courseSection);
+		if (offering == null) {
+			return "Course Offering Not Found (Check the Course Section)";
+		}
+		
+		student.deleteRegistration(course);
+		
+		try {
+			String query = "DELETE FROM registrations WHERE studentID=? AND courseID=? AND section=?";
+			PreparedStatement pStat = conn.prepareStatement(query);
+			pStat.setInt(1, student.getStudentId());
+			pStat.setInt(2, course.getCourseID());
+			pStat.setInt(3, courseSection);
+			pStat.executeUpdate(); // can be used to get the new number of rows, not important
+			pStat.close();
+		}
+		catch (SQLException e) {
+			System.err.println("Error adding a registration.");
+			e.printStackTrace();
+		}
+		
+		readDatabase();
+		
+		return "Successfully removed you from the course!";
 	}
 	
 	/**

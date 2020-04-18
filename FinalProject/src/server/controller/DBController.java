@@ -88,7 +88,7 @@ public class DBController implements Runnable {
 					
 					// Add the Course
 					Student student = databaseManager.getStudentByID(studentID);
-					message = student.deleteStudentFromCourse(databaseManager.getCourseCatalogue(), courseName, courseNum, courseSec);
+					message = databaseManager.deleteStudentFromCourse(student, databaseManager.getCourseCatalogue(), courseName, courseNum, courseSec);
 				}
 				
 				Transmission tx = new Transmission("Message", (Object)message);

@@ -81,31 +81,6 @@ public class Student implements Serializable {
 		}
 	}
 	
-	/**
-	 * Deletes a registration from the specified course.
-	 * 
-	 * @param cat
-	 * @param courseName
-	 * @param courseNum
-	 * @param courseSection
-	 */
-	public String deleteStudentFromCourse(CourseCatalogue cat, String courseName, int courseNum, int courseSection) {
-		Course course = cat.searchCat(courseName, courseNum);
-		
-		if (course == null) {
-			return "Course Not Found (Check the Course Name and Number)";
-		}
-
-		CourseOffering offering = course.getCourseOfferingAt(courseSection);
-		if (offering == null) {
-			return "Course Offering Not Found (Check the Course Section)";
-		}
-		
-		this.deleteRegistration(course);
-		
-		return "Successfully removed you from the course!";
-	}
-	
 	
 	public String getStudentName() {
 		return studentName;
