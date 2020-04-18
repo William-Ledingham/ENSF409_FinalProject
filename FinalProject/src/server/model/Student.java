@@ -82,48 +82,15 @@ public class Student implements Serializable {
 	}
 	
 	/**
-	 * Adds this student to the course given by the last 3 parameters. Returns a success/error message.
-	 * 
-	 * @param cat 
-	 * @param courseName
-	 * @param courseID
-	 * @param courseSection
-	 * @return A success/error message
-	 */
-	public String registerStudentInCourse(CourseCatalogue cat, String courseName, int courseID, int courseSection) {
-		Course course = cat.searchCat(courseName, courseID);
-		
-		if (course == null) {
-			return "Course Not Found (Check the Course Name and Number)";
-		}
-
-		CourseOffering offering = course.getCourseOfferingAt(courseSection);
-		if (offering == null) {
-			return "Course Offering Not Found (Check the Course Section)";
-		}
-		
-		if(studentRegList.size() < 6)
-		{
-			Registration reg = new Registration(this, offering);
-			reg.addRegistration();
-			return "Successfully added " + courseName  + " " + courseID + "!";
-		}
-		else
-		{
-			return "Unfortunately you have 6 classes already.";
-		}
-	}
-	
-	/**
 	 * Deletes a registration from the specified course.
 	 * 
 	 * @param cat
 	 * @param courseName
-	 * @param courseID
+	 * @param courseNum
 	 * @param courseSection
 	 */
-	public String deleteStudentFromCourse(CourseCatalogue cat, String courseName, int courseID, int courseSection) {
-		Course course = cat.searchCat(courseName, courseID);
+	public String deleteStudentFromCourse(CourseCatalogue cat, String courseName, int courseNum, int courseSection) {
+		Course course = cat.searchCat(courseName, courseNum);
 		
 		if (course == null) {
 			return "Course Not Found (Check the Course Name and Number)";

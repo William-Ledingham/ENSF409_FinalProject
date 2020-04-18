@@ -37,7 +37,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `registrations`;
 CREATE TABLE `registrations` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `studentID` int NOT NULL,
   `courseID` int NOT NULL,
   `section` int NOT NULL,

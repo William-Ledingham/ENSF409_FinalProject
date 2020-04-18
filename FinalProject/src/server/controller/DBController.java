@@ -62,7 +62,7 @@ public class DBController implements Runnable {
 					
 					// Add the Course
 					Student student = databaseManager.getStudentByID(studentID);
-					message = student.registerStudentInCourse(databaseManager.getCourseCatalogue(), courseName, courseNum, courseSec);
+					message = databaseManager.registerStudentInCourse(student, databaseManager.getCourseCatalogue(), courseName, courseNum, courseSec);
 				}
 				
 				Transmission tx = new Transmission("Message", (Object)message);
@@ -125,6 +125,7 @@ public class DBController implements Runnable {
 			
 			else if (rx.getAction().equals("RefreshCatalogue")) {
 				System.out.println("Refreshing Course Catalogue");
+				databaseManager.readDatabase();
 				
 				Transmission tx = new Transmission("RespondCatalogue", (Object)databaseManager.getCourseCatalogue().toString());
 

@@ -51,6 +51,14 @@ public class DBManager implements SQLCredentials {
 		// Initialize Connection to MySQL Server
 		initializeConnection();
 		
+		// Read everything from the database
+		readDatabase();
+	}
+	
+	/**
+	 * Reads everything from the database, compiles it (effectively syncs the database). Reads the courses, students, and registrations from scratch.
+	 */
+	public void readDatabase() {
 		// Read the courses
 		readCoursesFromDatabase();
 
@@ -62,7 +70,7 @@ public class DBManager implements SQLCredentials {
 	}
 
 	
-	public void readCoursesFromDatabase() {
+	private void readCoursesFromDatabase() {
 		// Start with a blank version of the course lists/course catalogue
 		courseList = new ArrayList<Course>();
 		cat = new CourseCatalogue();
@@ -85,7 +93,7 @@ public class DBManager implements SQLCredentials {
 		}
 	}
 	
-	public void readStudentsFromDatabase() {
+	private void readStudentsFromDatabase() {
 		// Start with a blank version of the student list
 		studentList = new ArrayList<Student>();
 		
@@ -107,7 +115,7 @@ public class DBManager implements SQLCredentials {
 	 * Reads all the registrations from the 'registrations' table, and adds them to the respective students and course offerings.
 	 * If we re-designed the system, we would implement the registration tracking system differently.
 	 */
-	public void readRegistrationsFromDatabase() {		
+	private void readRegistrationsFromDatabase() {		
 		try {
 			String query = "SELECT * FROM registrations";
 			PreparedStatement pStat = conn.prepareStatement(query);
@@ -121,6 +129,57 @@ public class DBManager implements SQLCredentials {
 			pStat.close();
 		} catch(SQLException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Adds this student to the course given by the last 3 parameters. Returns a success/error message.
+	 * Adds it both locally and to the MySQL server.
+	 * This method is only called from the DBController when a user adds a new course, not during setup.
+	 * 
+	 * @param cat 
+	 * @param courseName
+	 * @param courseNum
+	 * @param courseSection
+	 * @return A success/error message (gotten from the student.registerStudentInCourse)
+	 */
+	public String registerStudentInCourse(Student student, CourseCatalogue cat, String courseName, int courseNum, int courseSection) {
+		Course course = cat.searchCat(courseName, courseNum);
+		
+		if (course == null) {
+			return "Course Not Found (Check the Course Name and Number)";
+		}
+
+		CourseOffering offering = course.getCourseOfferingAt(courseSection);
+		if (offering == null) {
+			return "Course Offering Not Found (Check the Course Section)";
+		}
+		
+		if(student.getStudentRegList().size() < 6)
+		{
+			Registration reg = new Registration(student, offering);
+			reg.addRegistration();
+			
+			try {
+				String query = "INSERT INTO registrations (studentID, courseID, section) VALUES (?, ?, ?)";
+				PreparedStatement pStat = conn.prepareStatement(query);
+				pStat.setInt(1, student.getStudentId());
+				pStat.setInt(2, course.getCourseID());
+				pStat.setInt(3, courseSection);
+				pStat.executeUpdate(); // can be used to get the new number of rows, not important
+				pStat.close();
+			}
+			catch (SQLException e) {
+				System.err.println("Error adding a registration.");
+				e.printStackTrace();
+			}
+			
+			readDatabase();
+			return "Successfully added " + courseName  + " " + courseNum + "!";
+		}
+		else
+		{
+			return "Unfortunately you have 6 classes already.";
 		}
 	}
 	
