@@ -178,7 +178,21 @@ public class GUI extends JFrame {
 	public String inputDialogBoxStudentID()
 	{
 		return JOptionPane.showInputDialog("Please enter the Student ID (ex: 1):");
-	}	
+	}
+	/**
+	 * Prompts user with a dialog box for the server address. If the entry is blank, use the default 'localhost'.
+	 * @return A string of the server's address
+	 */
+	public String inputDialogBoxAddress()
+	{
+		String address = JOptionPane.showInputDialog("Please enter the server's address. If both the client and the server are on the same machine, enter 'localhost'.");
+		
+		if (address.length() <= 1) {
+			address = "localhost";
+		}
+		
+		return address;
+	}
 	/**
 	 * Shows message dialog box with specific string.
 	 * @param s Message to be printed in message box.

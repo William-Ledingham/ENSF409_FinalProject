@@ -32,12 +32,13 @@ public class ClientCommunicator {
 	
 	
 	/**
-	 * Creates a new object for client-to-server requests, at the default address and port (localhost, 9090).
+	 * Creates a new object for client-to-server requests, at the default address and port (address param, 9090).
+	 * @param address Server address (ex: localhost)
 	 */
-	public ClientCommunicator() {
+	public ClientCommunicator(String address) {
 		// Create connections to server
 		try {
-			socket = new Socket("localhost", 9090);
+			socket = new Socket(address, 9090);
 			socketSend = new ObjectOutputStream(socket.getOutputStream());
 			socketReceive = new ObjectInputStream(socket.getInputStream());
 		}

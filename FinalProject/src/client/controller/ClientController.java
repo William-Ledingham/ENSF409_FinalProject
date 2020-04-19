@@ -41,7 +41,7 @@ public class ClientController {
 	public ClientController(GUI theView)
 	{
 		this.theView = theView;
-		this.clientComm = new ClientCommunicator();
+		this.clientComm = new ClientCommunicator(theView.inputDialogBoxAddress());
 
 		theView.addChangeUserButtonListener(new ChangeUserButtonListener());
 		theView.addSearchCatButtonListener(new SearchCatButtonListener());
@@ -293,6 +293,7 @@ public class ClientController {
 		
 		return studentID;
 	}
+	
 	
 	/**
 	 * Class used to listen for the windowClosed Call
