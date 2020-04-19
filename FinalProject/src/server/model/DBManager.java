@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Connects to the MySQL server, loads in content, and writes it back to the database.
  * @author Parker Link
  * @version 1.0
- * @since 12-05-2020
+ * @since 12-04-2020
  *
  */
 public class DBManager implements SQLCredentials {

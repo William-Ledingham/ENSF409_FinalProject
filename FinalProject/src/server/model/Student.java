@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Keeps track of the students information
  * @author William Ledingham
  * @version 1.0
- * @since 12-05-2020
+ * @since 12-04-2020
  *
  */
 public class Student implements Serializable {	
@@ -135,6 +135,10 @@ public class Student implements Serializable {
 	public void setStudentId(int studentId) {
 		this.studentId = studentId;
 	}
+	
+	/**
+	 * Returns string of student name and id.
+	 */
 	@Override
 	public String toString () {
 		String st = "Student Name: " + getStudentName() + "\n" +

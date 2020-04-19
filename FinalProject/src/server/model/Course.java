@@ -3,10 +3,10 @@ package server.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 /**
- * The course that a student can be registered in
+ * A course that a student can be registered in.
  * @author William Ledingham
  * @version 1.0
- * @since 12-05-2020
+ * @since 12-04-2020
  *
  */
 public class Course implements Serializable {	
@@ -105,6 +105,9 @@ public class Course implements Serializable {
 	public void setCourseNum(int courseNum) {
 		this.courseNum = courseNum;
 	}
+	/**
+	 * Returns string of course information.
+	 */
 	@Override
 	public String toString () {
 		String st = "\n";

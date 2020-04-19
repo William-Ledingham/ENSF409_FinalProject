@@ -32,7 +32,6 @@ public class ClientController {
 	/**
 	 * the student ID of the student that logged in
 	 */
-	
 	private int studentID;	
 	/**
 	 * creates a new client controller with a GUI
@@ -181,7 +180,7 @@ public class ClientController {
 		}
 	}
 	/**
-	 * Class acts as the ActionListener for the remove Course Button of the AddCourse GUI.
+	 * Class acts as the ActionListener for the remove Course Button of the RemoveCourse GUI.
 	 */
 	class RemoveCoursePanelListener implements ActionListener
 	{
@@ -205,7 +204,7 @@ public class ClientController {
 		}
 	}
 	/**
-	 * Class acts as the ActionListener for the search Courses Button of the AddCourse GUI.
+	 * Class acts as the ActionListener for the search Courses Button of the SearchCourse GUI.
 	 */
 	class SearchCatPanelListener implements ActionListener
 	{
@@ -240,10 +239,6 @@ public class ClientController {
 		@SuppressWarnings("unused")
 		ClientController con = new ClientController(myApp);
 		
-		/*
-		BSTModel model = new BSTModel();
-		Controller controller = new Controller(myApp, model);
-		*/
 	}
 
 	/**

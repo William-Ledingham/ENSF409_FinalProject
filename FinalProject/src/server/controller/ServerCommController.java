@@ -10,9 +10,9 @@ import java.util.concurrent.Executors;
  * This is the main entry point for the entire server, and runs the server.
  * The server runs on port 9090.
  * 
- * @author Parker
+ * @author Parker, William
  * @version 1.0
- * @since 12-05-2020
+ * @since 12-04-2020
  *
  */
 public class ServerCommController {
@@ -45,7 +45,7 @@ public class ServerCommController {
 	 */
 	private DBController databaseController;
 	/**
-	 * creates a new serverCommController with the specified port
+	 * Creates a new serverCommController with the specified port.
 	 * @param port the port to create the connection at
 	 */
 	public ServerCommController(int port)
@@ -61,7 +61,8 @@ public class ServerCommController {
 		}
 	}
 	/**
-	 * method to begin running the server
+	 * Method to begin running the server.
+	 * Creates new thread for any new client connection.
 	 */
 	public void runServer()
 	{

@@ -24,7 +24,7 @@ class TestStudent {
 		CourseOffering offering = new CourseOffering(1, 20);
 		Registration r = new Registration(s, offering);
 		s.addRegistration(r);
-		ArrayList regList = s.getStudentRegList();
+		ArrayList<Registration> regList = s.getStudentRegList();
 		assertEquals(regList.get(0), r);
 	}
 	/**
@@ -50,7 +50,7 @@ class TestStudent {
 		CourseOffering offering = new CourseOffering(1, 20);
 		Registration r = new Registration(s, offering);
 		s.addRegistration(r);
-		ArrayList regList = s.getStudentRegList();
+		ArrayList<Registration> regList = s.getStudentRegList();
 		assertEquals(regList.get(0), r);
 	}
 
@@ -74,7 +74,6 @@ class TestStudent {
 		s.addRegistration(r2);
 		s.deleteRegistration(c2);
 
-		ArrayList regList1 = s.getStudentRegList();
 		ArrayList<Registration> regList2 = new ArrayList<Registration>();
 		regList2.add(r1);
 		assertEquals(s.getStudentRegList(), regList2);

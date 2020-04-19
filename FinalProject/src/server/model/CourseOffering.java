@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * the section of a given course
  * @author William Ledingham
  * @version 1.0
- * @since 12-05-2020
+ * @since 12-04-2020
  *
  *
  */
@@ -84,12 +84,15 @@ public class CourseOffering implements Serializable {
 	public void setTheCourse(Course theCourse) {
 		this.theCourse = theCourse;
 	}
+	/**
+	 * Returns string of information about course offering.
+	 */
 	@Override
 	public String toString () {
 		String st = "\n";
 		st += getTheCourse().getCourseName() + " " + getTheCourse().getCourseNum() + "\n";
 		st += "Section Num: " + getSecNum() + ", Section Cap: "+ getSecCap();
-		if(offeringRegList.size() < 8)
+		if(offeringRegList.size() < 10)
 		{
 			st += ",  Offering Requires More Students to Run";
 		}

@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * A list of all the courses available
  * @author William Ledingham
  * @version 1.0
- * @since 12-05-2020
+ * @since 12-04-2020
  *
  */
 public class CourseCatalogue implements Serializable {
@@ -80,6 +80,9 @@ public class CourseCatalogue implements Serializable {
 	public void setCourseList(ArrayList <Course> courseList) {
 		this.courseList = courseList;
 	}
+	/**
+	 * Returns string of all courses in the course catalogue.
+	 */
 	@Override
 	public String toString () {
 		String st = "All courses in the catalogue: \n";

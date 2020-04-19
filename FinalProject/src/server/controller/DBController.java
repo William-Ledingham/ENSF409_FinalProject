@@ -5,10 +5,10 @@ import shared.model.*;
 
 import java.io.*;
 /**
- * implements the communication between the client, server and data base
+ * Implements the communication between the client, server and data base.
  * @version 1.0
  * @since 12-04-2020
- * @author Michaela
+ * @author Parker, Michaela, William
  *
  */
 public class DBController implements Runnable {
@@ -37,9 +37,8 @@ public class DBController implements Runnable {
 		this.socketSend = socketSend;
 	}
 	/**
-	 * executes the communication between the client and server. Waits for a transmission object
-	 * and then parses the object and executes the action contained in the object. If required
-	 * sends a response to the client. 
+	 * Executes the communication between the client and server. Waits for a transmission object
+	 * and then parses the object and executes the action contained in the object.
 	 */
 	@Override
 	public void run() 
@@ -57,128 +56,181 @@ public class DBController implements Runnable {
 				System.err.println("Error receiving from client.");
 				e.printStackTrace();
 			}
-			
-			if (rx.getAction().equals("AddCourse")) {
-				System.out.println("Adding new course to student...");
-				String message = "";
-				
-				String courseName = rx.getOptions().get(0);
-				int courseNum = 0, courseSec = 0;
-				try {
-					courseNum = Integer.parseInt(rx.getOptions().get(1));
-					courseSec = Integer.parseInt(rx.getOptions().get(2));
-				}
-				catch (NumberFormatException e) {
-					message = "Invalid Course Number/Section Number. Please provide numbers.";
-				}
-				if (message.equals("")) {
-					int studentID = (Integer)rx.getContents();
-					
-					// Add the Course
-					Student student = databaseManager.getStudentByID(studentID);
-					message = databaseManager.registerStudentInCourse(student, databaseManager.getCourseCatalogue(), courseName, courseNum, courseSec);
-				}
-				
-				Transmission tx = new Transmission("Message", (Object)message);
 
-				sendResponse(tx);
-			}
-			
-			else if (rx.getAction().equals("RemoveCourse")) {
-				System.out.println("Delete course from student...");
-				String message = "";
-				
-				String courseName = rx.getOptions().get(0);
-				int courseNum = 0, courseSec = 0;
-				try {
-					courseNum = Integer.parseInt(rx.getOptions().get(1));
-					courseSec = Integer.parseInt(rx.getOptions().get(2));
-				}
-				catch (NumberFormatException e) {
-					message = "Invalid Course Number/Section Number. Please provide numbers.";
-				}
-				if (message.equals("")) {
-					int studentID = (Integer)rx.getContents();
-					
-					// Add the Course
-					Student student = databaseManager.getStudentByID(studentID);
-					message = databaseManager.deleteStudentFromCourse(student, databaseManager.getCourseCatalogue(), courseName, courseNum, courseSec);
-				}
-				
-				Transmission tx = new Transmission("Message", (Object)message);
-
-				sendResponse(tx);
-			}
-
-			else if (rx.getAction().equals("SearchCourse")) {
-				System.out.println("Searching for a course...");
-				String message = "";
-				
-				String courseName = rx.getOptions().get(0);
-				int courseNum = 0;
-				try {
-					courseNum = Integer.parseInt(rx.getOptions().get(1));
-				}
-				catch (NumberFormatException e) {
-					message = "Invalid Course Number. Please provide numbers.";
-				}
-				if (message.equals("")) {
-					Course courseFound = databaseManager.getCourseCatalogue().searchCat(courseName, courseNum);
-					if (courseFound == null) {
-						message = "Course Not Found, please search again.";
-					}
-					else {
-						message = "Search Results:\n\n" + courseFound.toString();
-					}
-				}
-				
-				Transmission tx = new Transmission("Message", (Object)message);
-
-				sendResponse(tx);
-			}
-			
-			else if (rx.getAction().equals("RefreshCatalogue")) {
-				System.out.println("Refreshing Course Catalogue");
-				databaseManager.readDatabase();
-				
-				Transmission tx = new Transmission("RespondCatalogue", (Object)databaseManager.getCourseCatalogue().toString());
-
-				sendResponse(tx);
-			}
-			
-			else if (rx.getAction().equals("RefreshStudent")) {
-				System.out.println("Refreshing Student");
-				
-				int studentID = (Integer)rx.getContents();
-				Student student = databaseManager.getStudentByID(studentID);
-				// WARNING: Sending the student does not get updated client-size, because of some weird Serialized duplication issue oof.
-				
-				Transmission tx = new Transmission("RespondStudent", (Object)student.getAllCourseRegistrations());
-
-				sendResponse(tx);
-			}
-			
-			else if (rx.getAction().equals("CheckStudentID")) {
-				System.out.println("Checking Student ID");
-				int studentID = (Integer)rx.getContents();
-				Student student = databaseManager.getStudentByID(studentID);
-				
-				boolean result = student != null; // true if valid student, false if invalid student id
-				Transmission tx = new Transmission("StudentIDExists", (Object)result);
-				
-				sendResponse(tx);
-			}
-			
-			else {
+			switch(rx.getAction())
+			{
+			case "AddCourse":
+				addCourse(rx);
+				break;
+			case "RemoveCourse":
+				removeCourse(rx);
+				break;
+			case "SearchCourse":
+				searchCourse(rx);
+				break;
+			case "RefreshCatalogue":
+				refreshCatalogue(rx);
+				break;
+			case "RefreshStudent":
+				refreshStudent(rx);
+				break;
+			case "CheckStudentID":
+				checkStudentID(rx);
+				break;
+			default:
 				System.err.println("Unknown Transmission Action: " + rx.getAction());
+				break;
 			}
 		}
 	}
+	
 	/**
-	 * trys to send a transmission object to the output stream (client)
+	 * Adds course to the students course list by parsing transmission information calling student methods.
+	 * Sends response if successful or failed.
+	 * @param rx The Transmission object received.
+	 */
+	private void addCourse(Transmission rx)
+	{
+		System.out.println("Adding new course to student...");
+		String message = "";
+		
+		String courseName = rx.getOptions().get(0);
+		int courseNum = 0, courseSec = 0;
+		try {
+			courseNum = Integer.parseInt(rx.getOptions().get(1));
+			courseSec = Integer.parseInt(rx.getOptions().get(2));
+		}
+		catch (NumberFormatException e) {
+			message = "Invalid Course Number/Section Number. Please provide numbers.";
+		}
+		if (message.equals("")) {
+			int studentID = (Integer)rx.getContents();
+			
+			// Add the Course
+			Student student = databaseManager.getStudentByID(studentID);
+			message = databaseManager.registerStudentInCourse(student, databaseManager.getCourseCatalogue(), courseName, courseNum, courseSec);
+		}
+		
+		Transmission tx = new Transmission("Message", (Object)message);
+
+		sendResponse(tx);
+	}
+	/**
+	 * Removes course from the students course list by parsing transmission information calling student methods.
+	 * Sends response if successful or failed.
+	 * @param rx The Transmission object received.
+	 */
+	private void removeCourse(Transmission rx)
+	{
+		System.out.println("Delete course from student...");
+		String message = "";
+		
+		String courseName = rx.getOptions().get(0);
+		int courseNum = 0, courseSec = 0;
+		try {
+			courseNum = Integer.parseInt(rx.getOptions().get(1));
+			courseSec = Integer.parseInt(rx.getOptions().get(2));
+		}
+		catch (NumberFormatException e) {
+			message = "Invalid Course Number/Section Number. Please provide numbers.";
+		}
+		if (message.equals("")) {
+			int studentID = (Integer)rx.getContents();
+			
+			// Add the Course
+			Student student = databaseManager.getStudentByID(studentID);
+			message = databaseManager.deleteStudentFromCourse(student, databaseManager.getCourseCatalogue(), courseName, courseNum, courseSec);
+		}
+		
+		Transmission tx = new Transmission("Message", (Object)message);
+
+		sendResponse(tx);
+	}
+	
+	/**
+	 * Search's the course catalogue for a course specified in the transmission.
+	 * @param rx The Transmission object received.
+	 */
+	private void searchCourse(Transmission rx)
+	{
+		System.out.println("Searching for a course...");
+		String message = "";
+		
+		String courseName = rx.getOptions().get(0);
+		int courseNum = 0;
+		try {
+			courseNum = Integer.parseInt(rx.getOptions().get(1));
+		}
+		catch (NumberFormatException e) {
+			message = "Invalid Course Number. Please provide numbers.";
+		}
+		if (message.equals("")) {
+			Course courseFound = databaseManager.getCourseCatalogue().searchCat(courseName, courseNum);
+			if (courseFound == null) {
+				message = "Course Not Found, please search again.";
+			}
+			else {
+				message = "Search Results:\n\n" + courseFound.toString();
+			}
+		}
+		
+		Transmission tx = new Transmission("Message", (Object)message);
+
+		sendResponse(tx);
+	}
+	
+	/**
+	 * Creates new Transmission containing the course catalogue to send in a response to the client.
+	 * @param rx Transmission object received.
+	 */
+	private void refreshCatalogue(Transmission rx)
+	{
+		System.out.println("Refreshing Course Catalogue");
+		databaseManager.readDatabase();
+		
+		Transmission tx = new Transmission("RespondCatalogue", (Object)databaseManager.getCourseCatalogue().toString());
+
+		sendResponse(tx);
+	}
+	/**
+	 * Creates new Transmission containing courses of student to send in a response to the client.
+	 * @param rx Transmission object received.
+	 */
+	private void refreshStudent(Transmission rx)
+	{
+		System.out.println("Refreshing Student");
+		
+		int studentID = (Integer)rx.getContents();
+		Student student = databaseManager.getStudentByID(studentID);
+		// WARNING: Sending the student does not get updated client-size, because of some weird Serialized duplication issue oof.
+		
+		Transmission tx = new Transmission("RespondStudent", (Object)student.getAllCourseRegistrations());
+
+		sendResponse(tx);
+	}
+	
+	/**
+	 * Checks if student ID in the transmission exists and sends response.
+	 * @param rx Transmission object received.
+	 */
+	private void checkStudentID(Transmission rx)
+	{
+		System.out.println("Checking Student ID");
+		int studentID = (Integer)rx.getContents();
+		Student student = databaseManager.getStudentByID(studentID);
+		
+		boolean result = student != null; // true if valid student, false if invalid student id
+		Transmission tx = new Transmission("StudentIDExists", (Object)result);
+		
+		sendResponse(tx);
+	}
+	
+	
+	/**
+	 * Tries to send a transmission object to the output stream (client).
 	 * @param tx the transmission object to be sent
 	 */
-	public void sendResponse(Transmission tx) {
+	private void sendResponse(Transmission tx) {
 		try {
 			socketSend.writeObject((Object) tx);
 		} catch (IOException e) {
@@ -187,6 +239,8 @@ public class DBController implements Runnable {
 		}
 	}
 	
+	
+
 	
 	
 

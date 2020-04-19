@@ -5,7 +5,7 @@ import java.io.Serializable;
  * An object to keep track of which students are registered in which course offerings.
  * @author Michaela Gartner
  * @version 1.0
- * @since 12-05-2020
+ * @since 12-04-2020
  *
  */
 public class Registration implements Serializable {
@@ -93,6 +93,9 @@ public class Registration implements Serializable {
 		this.grade = grade;
 	}
 	
+	/**
+	 * Returns string of registration attributes.
+	 */
 	@Override
 	public String toString () {
 		String st = "\n";

@@ -118,7 +118,7 @@ public class SearchCatPanel extends JFrame {
 		return courseIdTextField.getText();
 	}
 	/**
-	 * clears teh faculty and courseId text fields
+	 * Clears the faculty and courseId text fields
 	 */
 
 	public void clearFields() {
