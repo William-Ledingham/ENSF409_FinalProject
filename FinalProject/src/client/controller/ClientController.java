@@ -42,12 +42,13 @@ public class ClientController {
 	{
 		this.theView = theView;
 		this.clientComm = new ClientCommunicator();
-		
+
+		theView.addChangeUserButtonListener(new ChangeUserButtonListener());
 		theView.addSearchCatButtonListener(new SearchCatButtonListener());
 		theView.addRefreshButtonListener(new RefreshButtonListener());
 		theView.addAddCourseButtonListener(new AddCourseButtonListener());
-		theView.addRemoveCourseButtonListener(new RemoveCourseButtonListener());
-		
+		theView.addRemoveCourseButtonListener(new RemoveCourseButtonListener());		
+
 		theView.addAddCoursePanelButtonListener(new AddCoursePanelListener());
 		theView.addRemoveCoursePanelButtonListener(new RemoveCoursePanelListener());
 		theView.addSearchCatPanelButtonListener(new SearchCatPanelListener());
@@ -69,6 +70,23 @@ public class ClientController {
 	 */
 	public void close() {
 		clientComm.close();
+	}
+	
+	/**
+	 * Class used to listen for changeUserButton Call.
+	 * @author William Ledingham
+	 * @version 1.0
+	 * @since 10-04-2020
+	 *
+	 */
+	class ChangeUserButtonListener implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			studentID = promptForStudentID();
+			refreshAction();
+		}
 	}
 	
 	/**

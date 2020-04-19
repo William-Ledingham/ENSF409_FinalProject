@@ -66,6 +66,10 @@ public class GUI extends JFrame {
 	 */
 	private JButton removeCourseButton = new JButton("Remove Course");
 	/**
+	 * Button to change student logged in.
+	 */
+	private JButton changeUserCourseButton = new JButton("Change User");
+	/**
 	 * JFrame used to collect information from user to add a course to students course list.
 	 */
 	private AddCoursePanel addCoursePanel;
@@ -113,6 +117,7 @@ public class GUI extends JFrame {
 		
 		JPanel southPanel = new JPanel(new FlowLayout());
 		
+		southPanel.add(changeUserCourseButton);
 		southPanel.add(searchCatButton);
 		southPanel.add(refreshButton);
 		southPanel.add(addCourseButton);
@@ -182,7 +187,14 @@ public class GUI extends JFrame {
 	{
 		JOptionPane.showMessageDialog(this, s);
 	}
-	
+	/**
+	 * Adds listener to the changeUserButton.
+	 * @param actionListener the action listener
+	 */
+	public void addChangeUserButtonListener(ActionListener actionListener)
+	{
+		changeUserCourseButton.addActionListener(actionListener);
+	}
 	/**
 	 * Adds listener to the searchCatButton.
 	 * @param actionListener the action listener
