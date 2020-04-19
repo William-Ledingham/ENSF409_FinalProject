@@ -22,6 +22,11 @@ This project implements a student course registration system, where student clie
 
 ## Bonus Features Implemented
 * Login/Logout Feature
-	* Click the Logout Button, and then log in as another user
+	* Click the "Change User" button, and then log in as another user
 * Deploy the Project (Run the Server and Client on Seperate Machines)
 	* See the video demonstration
+	* Enter the address, or press okay to use the local computer (localhost).
+	* The client run configuration was exported as a .jar file for distribution.
+* JUnit Testing
+	* JUnit Testing for the `Course` and `Student` classes
+	* Testing shown in video demonstration
